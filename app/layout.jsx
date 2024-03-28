@@ -26,6 +26,7 @@ const fontSans = FontSans({
     [] rank seçme kısmını da ekle.
     [] background image ekle.
     [] card border a bak düzenle.
+    [] card image yüklenene kadar skeleton göster.
 
 */
 

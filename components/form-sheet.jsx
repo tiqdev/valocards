@@ -31,7 +31,7 @@ const SheetForm = () => {
       <SheetTrigger asChild>
         <Button variant="outline">Edit Card</Button>
       </SheetTrigger>
-      <SheetContent side={"left"} className="w-[400px]">
+      <SheetContent side={"left"} className="w-[320px] md:w-[400px]">
         <aside className="z-10 h-full  flex flex-col gap-4 items-center justify-start py-6">
           <h2 className="scroll-m-20 border-b pb-4 text-xl font-semibold text-center tracking-tight mt-4 w-full first:mt-0">
             Create your card
