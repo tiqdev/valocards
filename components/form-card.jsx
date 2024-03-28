@@ -109,7 +109,7 @@ const CardForm = () => {
           render={({ field }) => (
             <FormItem className="flex-1">
               <FormLabel>Card</FormLabel>
-              <ScrollArea className="h-[calc(100dvh-420px)] min-h-72 rounded-md border p-4">
+              <ScrollArea className="h-[calc(100svh-420px)] min-h-72 rounded-md border p-4">
                 <ul className="flex flex-col gap-5">
                   {playerCards.map((item) => {
                     return (
