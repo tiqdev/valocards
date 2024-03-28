@@ -7,7 +7,7 @@ const CardPreview = () => {
   const card = useCardPreview();
 
   return (
-    <div className="w-[268px] h-[640px]  relative">
+    <div className="w-[268px] h-[640px] scale-90 md:scale-100 relative">
       <h2 className="absolute bottom-[214px] left-1/2 -translate-x-1/2 z-20 font-medium text-[16px] text-black">
         {card.username}
       </h2>
