@@ -36,7 +36,7 @@ export default function RootLayout({ children }) {
       <Provider store={store}>
         <body
           className={cn(
-            "min-h-screen h-screen font-sans antialiased",
+            "min-h-dvh h-dvh font-sans antialiased",
             fontSans.variable
           )}
         >
