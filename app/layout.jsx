@@ -20,8 +20,8 @@ export const metadata = {
 
 /*TODO:
     - Sidebar
-    [] add dropdown for selecting different player titles
-    [] add input field for player username
+    [x] add dropdown for selecting different player titles
+    [x] add input field for player username
     [] add select card image button for oppening dialog for selecting image 
 */
 
