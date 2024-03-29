@@ -2,12 +2,14 @@ import store from "..";
 import {
   _getAgents,
   _getPlayerCards,
+  _getTiers,
   _getTitles,
   _setCardPreview,
   _setFormData,
   _setLanguages,
   _setLoading,
   _setSelectedLanguage,
+  _setSheetOpen,
 } from ".";
 
 export const setIsLoading = (isLoading) => {
@@ -40,4 +42,12 @@ export const getPlayerCards = async () => {
 
 export const getAgents = async () => {
   store.dispatch(_getAgents());
+};
+
+export const getTiers = async () => {
+  store.dispatch(_getTiers());
+};
+
+export const setSheetOpen = (isOpen) => {
+  store.dispatch(_setSheetOpen(isOpen));
 };

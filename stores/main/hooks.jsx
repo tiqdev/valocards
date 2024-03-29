@@ -31,3 +31,11 @@ export const usePlayerCards = () => {
 export const useAgents = () => {
   return useSelector((state) => state.main.agents);
 };
+
+export const useTiers = () => {
+  return useSelector((state) => state.main.tiers);
+};
+
+export const useSheetOpen = () => {
+  return useSelector((state) => state.main.isSheetOpen);
+};

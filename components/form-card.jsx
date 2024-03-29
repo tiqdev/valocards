@@ -27,6 +27,7 @@ import {
   useCardPreview,
   useFormData,
   usePlayerCards,
+  useTiers,
   useTitles,
 } from "@/stores/main/hooks";
 import { setCardPreview, setFormData } from "@/stores/main/actions";
@@ -34,33 +35,64 @@ import { ScrollArea } from "./ui/scroll-area";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import Image from "next/image";
 import { SheetClose } from "./ui/sheet";
+import { toast } from "sonner";
 
 const CardForm = () => {
   const titles = useTitles();
   const agents = useAgents();
+  const tiers = useTiers();
   const playerCards = usePlayerCards();
   const cardPreview = useCardPreview();
   const formData = useFormData();
 
   const onSubmit = (data) => {
     console.log(data);
-    const card = {
-      ...cardPreview,
-      username: data.username,
-      title: data.title,
-      cardImage: data.cardImage.largeArt,
-      bannerImage: data.cardImage.wideArt,
-      agentName:
-        data.agent.toLowerCase().charAt(0).toUpperCase() + data.agent.slice(1),
-      agentImage: agents.find((item) => item.displayName === data.agent)
-        .displayIcon,
-    };
 
     const _formData = {
       title: data.title,
       username: data.username,
       cardImage: data.cardImage,
       agent: data.agent,
+      tier: data.tier,
+    };
+
+    if (!data.username) {
+      toast.error("Username is required");
+      return;
+    }
+
+    if (!data.title) {
+      toast.error("Title is required");
+      return;
+    }
+
+    if (!data.agent) {
+      toast.error("Agent is required");
+      return;
+    }
+
+    if (!data.tier) {
+      toast.error("Tier is required");
+      return;
+    }
+
+    if (!data.cardImage) {
+      toast.error("Card is required");
+      return;
+    }
+
+    const card = {
+      ...cardPreview,
+      username: data.username,
+      title: data.title,
+      cardImage: data.cardImage.largeArt,
+      bannerImage: data.cardImage.wideArt,
+      tierName: data.tier,
+      tierIcon: tiers.find((item) => item.tierName === data.tier).largeIcon,
+      agentName:
+        data.agent.toLowerCase().charAt(0).toUpperCase() + data.agent.slice(1),
+      agentImage: agents.find((item) => item.displayName === data.agent)
+        .displayIcon,
     };
 
     setCardPreview(card);
@@ -68,10 +100,11 @@ const CardForm = () => {
   };
   const form = useForm({
     defaultValues: formData,
+    validateCriteriaMode: "all",
   });
 
   return (
-    <ScrollArea className="h-screen w-full max-w-[360px] rounded-md px-0">
+    <ScrollArea className="h-screen w-full max-w-[360px] rounded-md px-0 pt-4">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -82,7 +115,11 @@ const CardForm = () => {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Username</FormLabel>
+                <FormLabel
+                  className={field.value === "" ? "text-primary font-bold" : ""}
+                >
+                  Username
+                </FormLabel>
                 <FormControl>
                   <Input {...field} placeholder="Your cool username" />
                 </FormControl>
@@ -96,7 +133,11 @@ const CardForm = () => {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Title</FormLabel>
+                <FormLabel
+                  className={field.value === "" ? "text-primary font-bold" : ""}
+                >
+                  Title
+                </FormLabel>
 
                 <Select
                   onValueChange={field.onChange}
@@ -108,16 +149,21 @@ const CardForm = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {titles.map((item) => {
-                      return (
-                        <SelectItem
-                          key={item.displayName}
-                          value={item.titleText}
-                        >
-                          {item.titleText}
-                        </SelectItem>
-                      );
-                    })}
+                    {titles
+                      .filter(
+                        (item) =>
+                          item.titleText !== "VCT MASTERS REYKJAVIK GALİBİ"
+                      )
+                      .map((item) => {
+                        return (
+                          <SelectItem
+                            key={item.displayName}
+                            value={item.titleText}
+                          >
+                            {item.titleText}
+                          </SelectItem>
+                        );
+                      })}
                   </SelectContent>
                 </Select>
 
@@ -131,7 +177,11 @@ const CardForm = () => {
             name="agent"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Agent</FormLabel>
+                <FormLabel
+                  className={field.value === "" ? "text-primary font-bold" : ""}
+                >
+                  Agent
+                </FormLabel>
 
                 <Select
                   onValueChange={field.onChange}
@@ -163,10 +213,49 @@ const CardForm = () => {
 
           <FormField
             control={form.control}
+            name="tier"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel
+                  className={field.value === "" ? "text-primary font-bold" : ""}
+                >
+                  Tier
+                </FormLabel>
+
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select a tier" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {tiers.map((item) => {
+                      return (
+                        <SelectItem key={item.tierName} value={item.tierName}>
+                          {item.tierName}
+                        </SelectItem>
+                      );
+                    })}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
             name="cardImage"
             render={({ field }) => (
               <FormItem className="flex-1">
-                <FormLabel>Card</FormLabel>
+                <FormLabel
+                  className={field.value === "" ? "text-primary font-bold" : ""}
+                >
+                  Card
+                </FormLabel>
                 <ScrollArea className="h-[400px] min-h-72 rounded-md border p-4">
                   <ul className="flex flex-col gap-5">
                     {playerCards.map((item) => {
@@ -178,12 +267,19 @@ const CardForm = () => {
                             field.onChange(item);
                           }}
                         >
-                          <AspectRatio ratio={16 / 4}>
+                          <AspectRatio
+                            ratio={16 / 4}
+                            className={
+                              field.value?.uuid !== item.uuid
+                                ? "grayscale hover:scale-95 transition-all duration-300 ease-in-out cursor-pointe"
+                                : "hover:scale-95 transition-all duration-300 ease-in-out cursor-pointer"
+                            }
+                          >
                             <Image
                               src={item.wideArt}
                               alt="Image"
                               fill
-                              className="rounded-md object-cover grayscale hover:grayscale-0 transition-all duration-300 ease-in-out cursor-pointer"
+                              className="rounded-md object-cover transition-all duration-300 ease-in-out cursor-pointer"
                             />
                           </AspectRatio>
                         </li>

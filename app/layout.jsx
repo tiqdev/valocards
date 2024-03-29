@@ -7,7 +7,10 @@ import { ThemeProvider } from "@/components/theme-provider";
 
 import { Provider } from "react-redux";
 import store from "@/stores";
-import Sidebar from "@/components/sidebar";
+import { Toaster } from "@/components/ui/sonner";
+import MenuBar from "@/components/menu-bar";
+import Logo from "@/components/logo";
+import ToggleTheme from "@/components/toggle-theme";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -46,6 +49,10 @@ export default function RootLayout({ children }) {
             enableSystem
             disableTransitionOnChange
           >
+            <Logo />
+            <ToggleTheme />
+            <MenuBar />
+            <Toaster position="bottom-center" richColors />
             <div className="w-full">{children}</div>
           </ThemeProvider>
         </body>

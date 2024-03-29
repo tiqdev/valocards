@@ -12,9 +12,17 @@ const CardPreview = () => {
         {card.username}
       </h2>
 
-      <h3 className="absolute bottom-[193px] left-1/2 -translate-x-1/2 z-20 font-normal text-[12px] text-gray-100">
+      <h3 className="absolute bottom-[193px] w-full left-1/2 -translate-x-1/2 z-20 font-normal text-center text-[11px] text-gray-100">
         {card.title}
       </h3>
+
+      <Image
+        src={card.tierIcon}
+        width={60}
+        height={60}
+        alt="{card.cardName}"
+        className=" object-contain absolute bottom-[44px] left-1/2 -translate-x-1/2 z-40"
+      />
 
       <Image
         src={"/card_border.png"}
@@ -24,15 +32,27 @@ const CardPreview = () => {
         className="absolute top-0 left-0 w-full h-full object-contain z-10"
       />
 
-      <Image
-        src={card.cardImage}
-        width={268}
-        height={640}
-        alt="{card.playerCard}"
-        className="absolute top-0 left-0 w-full h-full object-contain"
-      />
+      <div className="relative h-full w-full">
+        <Image
+          src={card.cardImage}
+          width={268}
+          height={640}
+          alt="{card.playerCard}"
+          className="absolute top-0 left-0 w-full h-full object-contain z-0"
+          style={{
+            clipPath: "polygon(50% 94%, 100% 76%, 100% 0, 0 0, 0 76%)",
+            maskImage: "linear-gradient(to top, transparent 0%, black 60%)",
+          }}
+        />
+      </div>
     </div>
   );
 };
 
 export default CardPreview;
+
+/*
+ style={{
+          clipPath: "polygon(50% 94%, 100% 76%, 100% 0, 0 0, 0 76%)",
+        }}
+*/

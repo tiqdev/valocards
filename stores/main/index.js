@@ -9,9 +9,11 @@ const initialState = {
         { name: "English", value: "en-US" },
     ],
 
+    isSheetOpen: false,
+
     titles: [],
 
-    competitiveTiers: [],
+    tiers: [],
 
     agents: [],
 
@@ -27,6 +29,8 @@ const initialState = {
         cardName: "Beta Kartı",
         bannerImage: "https://media.valorant-api.com/playercards/e6529e9c-4a2b-c31c-7252-e185a8ce4a04/wideart.png",
         type: "card",
+        tierName: "Radiant",
+        tierIcon: "https://media.valorant-api.com/competitivetiers/564d8e28-c226-3180-6285-e48a390db8b1/7/largeicon.png",
     },
 
     formData: {
@@ -34,6 +38,7 @@ const initialState = {
         username: "",
         cardImage: "",
         agent: "",
+        tier: "",
     },
 
     apiError: {
@@ -42,7 +47,6 @@ const initialState = {
     },
 
 };
-
 
 
 export const _getPlayerCards = createAsyncThunk(
@@ -59,6 +63,7 @@ export const _getTitles = createAsyncThunk(
     'main/getTitles',
     async (payload, { dispatch, getState }) => {
         let state = getState();
+        if (state.main.titles.length > 0) return state.main.titles;
         const response = await axios.get('https://valorant-api.com/v1/playertitles?language=' + state.main.selectedLanguage.value);
         return response.data;
     }
@@ -68,11 +73,21 @@ export const _getAgents = createAsyncThunk(
     'main/getAgents',
     async (payload, { dispatch, getState }) => {
         let state = getState();
+        if (state.main.agents.length > 0) return state.main.agents;
         const response = await axios.get('https://valorant-api.com/v1/agents?isPlayableCharacter=true&language=' + state.main.selectedLanguage.value);
         return response.data;
     }
 );
 
+export const _getTiers = createAsyncThunk(
+    'main/getTiers',
+    async (payload, { dispatch, getState }) => {
+        let state = getState();
+        if (state.main.tiers.length > 0) return state.main.tiers;
+        const response = await axios.get('https://valorant-api.com/v1/competitivetiers?language=' + state.main.selectedLanguage.value);
+        return response.data;
+    }
+);
 
 
 const MainSlice = createSlice({
@@ -98,6 +113,10 @@ const MainSlice = createSlice({
         _setFormData: (state, action) => {
             state.formData = action.payload;
         },
+
+        _setSheetOpen: (state, action) => {
+            state.isSheetOpen = action.payload;
+        }
 
     },
 
@@ -154,6 +173,21 @@ const MainSlice = createSlice({
                 // API çağrısı başarısız olduğunda durumu güncelle
                 state.isLoading = false;
                 console.log(action.error.message);
+            })
+            .addCase(_getTiers.pending, (state) => {
+                // API çağrısı başladığında durumu güncelle
+                state.isLoading = true;
+            })
+            .addCase(_getTiers.fulfilled, (state, action) => {
+                // API çağrısı başarılı olduğunda durumu güncelle
+                state.isLoading = false;
+                state.tiers = action.payload.data[0].tiers.filter((tier) => tier.largeIcon !== null);
+                console.log(action.payload.data[0].tiers.filter((tier) => tier.largeIcon !== null));
+            })
+            .addCase(_getTiers.rejected, (state, action) => {
+                // API çağrısı başarısız olduğunda durumu güncelle
+                state.isLoading = false;
+                console.log(action.error.message);
             });
     },
 });
@@ -162,6 +196,6 @@ const MainSlice = createSlice({
 
 
 
-export const { _setLoading, _setCardPreview, _setLanguages, _setSelectedLanguage, _setFormData } = MainSlice.actions;
+export const { _setLoading, _setCardPreview, _setLanguages, _setSelectedLanguage, _setFormData, _setSheetOpen } = MainSlice.actions;
 
 export default MainSlice.reducer;

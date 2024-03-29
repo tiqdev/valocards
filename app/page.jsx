@@ -1,27 +1,63 @@
 "use client";
 
 import SheetForm from "@/components/form-sheet";
+import MenuBar from "@/components/menu-bar";
 import BannerPreview from "@/components/preview-banner";
 import CardPreview from "@/components/preview-card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { setCardPreview } from "@/stores/main/actions";
-import { useCardPreview } from "@/stores/main/hooks";
+
+import {
+  getAgents,
+  getPlayerCards,
+  getTiers,
+  getTitles,
+  setCardPreview,
+} from "@/stores/main/actions";
+import {
+  useAgents,
+  useCardPreview,
+  usePlayerCards,
+  useTiers,
+  useTitles,
+} from "@/stores/main/hooks";
+import { useEffect } from "react";
 
 export default function Home() {
   let cardPreview = useCardPreview();
-  console.log(cardPreview);
+  let titles = useTitles();
+  let agents = useAgents();
+  let tiers = useTiers();
+  let playerCards = usePlayerCards();
 
-  const tabChange = (value) => {
-    cardPreview = {
-      ...cardPreview,
-      type: value,
-    };
+  useEffect(() => {
+    if (titles.length === 0) {
+      getTitles();
+    }
 
-    setCardPreview(cardPreview);
-  };
+    if (playerCards.length === 0) {
+      getPlayerCards();
+    }
+
+    if (agents.length === 0) {
+      getAgents();
+    }
+
+    if (tiers.length === 0) {
+      getTiers();
+    }
+  }, [agents.length, playerCards.length, tiers.length, titles.length]);
 
   return (
-    <main className="flex min-h-svh w-full flex-col items-center justify-center md:gap-12 gap-4">
+    <main className="flex min-h-svh w-full flex-col items-center justify-center md:gap-12 gap-4 absolute top-0 left-0 ">
+      {cardPreview.type === "card" && <CardPreview />}
+      {cardPreview.type === "banner" && <BannerPreview />}
+      <SheetForm />
+    </main>
+  );
+}
+
+/*
+
+ <main className="flex min-h-svh w-full flex-col items-center justify-center md:gap-12 gap-4">
       <Tabs
         defaultValue={cardPreview.type}
         className="w-[400px] flex flex-col items-center justify-center"
@@ -37,7 +73,7 @@ export default function Home() {
             Card
           </TabsTrigger>
           <TabsTrigger
-            className="flex-1 "
+            className="flex-1"
             value="banner"
             onClick={() => {
               tabChange("banner");
@@ -59,5 +95,4 @@ export default function Home() {
 
       <SheetForm />
     </main>
-  );
-}
+    */

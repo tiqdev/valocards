@@ -1,12 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const Logo = () => {
   return (
-    <Link
-      href={"/"}
-      className="w-12 h-12 bg-red-400 rounded-sm hover:scale-110 duration-300 font-black text-3xl text-black flex items-center justify-center"
-    >
-      t
+    <Link className="absolute right-12 top-8 z-10" href={"/"}>
+      <Image src={"/logo.png"} alt="Logo" width={40} height={60} />
     </Link>
   );
 };
