@@ -13,15 +13,20 @@ const initialState = {
 
     competitiveTiers: [],
 
+    agents: [],
+
     playerCards: [],
 
     cardPreview: {
-        title: "Miyav",
-        username: "Zena",
+        title: "YR 1",
+        username: "Lally",
+        agentName: "Clove",
+        agentImage: "https://media.valorant-api.com/agents/1dbf2edd-4729-0984-3115-daa5eed44993/displayicon.png",
         cardImage:
-            "https://media.valorant-api.com/playercards/109ea8c8-b372-4fe0-be3c-a5c3e549b38a/largeart.png",
-        cardName: "KÜBİK TİLKİ KARTI",
-        alignment: "vertical",
+            "https://media.valorant-api.com/playercards/e6529e9c-4a2b-c31c-7252-e185a8ce4a04/largeart.png",
+        cardName: "Beta Kartı",
+        bannerImage: "https://media.valorant-api.com/playercards/e6529e9c-4a2b-c31c-7252-e185a8ce4a04/wideart.png",
+        type: "card",
     },
 
     formData: {
@@ -56,6 +61,15 @@ export const _getTitles = createAsyncThunk(
     async (payload, { dispatch, getState }) => {
         let state = getState();
         const response = await axios.get('https://valorant-api.com/v1/playertitles?language=' + state.main.selectedLanguage.value);
+        return response.data;
+    }
+);
+
+export const _getAgents = createAsyncThunk(
+    'main/getAgents',
+    async (payload, { dispatch, getState }) => {
+        let state = getState();
+        const response = await axios.get('https://valorant-api.com/v1/agents?isPlayableCharacter=true&language=' + state.main.selectedLanguage.value);
         return response.data;
     }
 );
@@ -123,6 +137,21 @@ const MainSlice = createSlice({
                 console.log(action.payload.data);
             })
             .addCase(_getPlayerCards.rejected, (state, action) => {
+                // API çağrısı başarısız olduğunda durumu güncelle
+                state.isLoading = false;
+                console.log(action.error.message);
+            })
+            .addCase(_getAgents.pending, (state) => {
+                // API çağrısı başladığında durumu güncelle
+                state.isLoading = true;
+            })
+            .addCase(_getAgents.fulfilled, (state, action) => {
+                // API çağrısı başarılı olduğunda durumu güncelle
+                state.isLoading = false;
+                state.agents = action.payload.data;
+                console.log(action.payload.data);
+            })
+            .addCase(_getAgents.rejected, (state, action) => {
                 // API çağrısı başarısız olduğunda durumu güncelle
                 state.isLoading = false;
                 console.log(action.error.message);

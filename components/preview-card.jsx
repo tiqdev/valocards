@@ -36,9 +36,3 @@ const CardPreview = () => {
 };
 
 export default CardPreview;
-
-/*
- style={{
-          clipPath: "polygon(50% 94%, 100% 76%, 100% 0, 0 0, 0 76%)",
-        }}
-*/

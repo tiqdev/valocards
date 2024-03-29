@@ -27,3 +27,7 @@ export const useTitles = () => {
 export const usePlayerCards = () => {
   return useSelector((state) => state.main.playerCards);
 };
+
+export const useAgents = () => {
+  return useSelector((state) => state.main.agents);
+};

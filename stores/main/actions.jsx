@@ -1,5 +1,6 @@
 import store from "..";
 import {
+  _getAgents,
   _getPlayerCards,
   _getTitles,
   _setCardPreview,
@@ -35,4 +36,8 @@ export const getTitles = async () => {
 
 export const getPlayerCards = async () => {
   store.dispatch(_getPlayerCards());
+};
+
+export const getAgents = async () => {
+  store.dispatch(_getAgents());
 };
