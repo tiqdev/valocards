@@ -25,20 +25,22 @@ import {
 import {
   useAgents,
   useCardPreview,
+  useFormData,
   usePlayerCards,
   useTitles,
 } from "@/stores/main/hooks";
-import { setCardPreview } from "@/stores/main/actions";
+import { setCardPreview, setFormData } from "@/stores/main/actions";
 import { ScrollArea } from "./ui/scroll-area";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import Image from "next/image";
-import { SheetClose, SheetFooter } from "./ui/sheet";
+import { SheetClose } from "./ui/sheet";
 
 const CardForm = () => {
   const titles = useTitles();
   const agents = useAgents();
   const playerCards = usePlayerCards();
   const cardPreview = useCardPreview();
+  const formData = useFormData();
 
   const onSubmit = (data) => {
     console.log(data);
@@ -48,21 +50,24 @@ const CardForm = () => {
       title: data.title,
       cardImage: data.cardImage.largeArt,
       bannerImage: data.cardImage.wideArt,
-      agentName: data.agent,
+      agentName:
+        data.agent.toLowerCase().charAt(0).toUpperCase() + data.agent.slice(1),
       agentImage: agents.find((item) => item.displayName === data.agent)
         .displayIcon,
     };
 
-    console.log(card);
+    const _formData = {
+      title: data.title,
+      username: data.username,
+      cardImage: data.cardImage,
+      agent: data.agent,
+    };
+
     setCardPreview(card);
+    setFormData(_formData);
   };
   const form = useForm({
-    defaultValues: {
-      username: "",
-      title: "",
-      cardImage: "",
-      agent: "",
-    },
+    defaultValues: formData,
   });
 
   return (

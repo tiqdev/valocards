@@ -33,8 +33,7 @@ const initialState = {
         title: "",
         username: "",
         cardImage: "",
-        cardName: "",
-        alignment: "vertical",
+        agent: "",
     },
 
     apiError: {
