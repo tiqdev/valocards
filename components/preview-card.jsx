@@ -1,10 +1,13 @@
 "use client";
 
-import { useCardPreview } from "@/stores/main/hooks";
+import { useCardPreview, useIsPng } from "@/stores/main/hooks";
+import { Switch } from "@/components/ui/switch";
+
 import Image from "next/image";
 
 const CardPreview = () => {
   const card = useCardPreview();
+  let isPng = useIsPng();
 
   return (
     <div className="w-[268px] h-[640px] relative" id="card-preview">
@@ -29,7 +32,7 @@ const CardPreview = () => {
         width={268}
         height={640}
         alt="card border"
-        className="absolute top-0 left-0 w-full h-full object-contain z-10 "
+        className="absolute top-0 left-[1px] w-full h-full object-contain z-10 "
       />
 
       <div className="relative h-full w-full">
@@ -39,10 +42,15 @@ const CardPreview = () => {
           height={640}
           alt="card image"
           className="absolute top-0 left-0 w-full h-full object-contain z-0"
-          style={{
-            clipPath: "polygon(50% 94%, 100% 76%, 100% 0, 0 0, 0 76%)",
-            maskImage: "linear-gradient(to top, transparent 0%, black 30%)",
-          }}
+          style={
+            isPng
+              ? {
+                  clipPath: "polygon(50% 94%, 100% 76%, 100% 0, 0 0, 0 76%)",
+                  maskImage:
+                    "linear-gradient(to top, transparent 0%, black 30%)",
+                }
+              : {}
+          }
         />
       </div>
     </div>

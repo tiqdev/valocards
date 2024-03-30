@@ -104,7 +104,7 @@ const CardForm = () => {
   });
 
   return (
-    <ScrollArea className="h-screen w-full max-w-[360px] rounded-md px-0 pt-4">
+    <ScrollArea className="h-svh w-full max-w-[360px] rounded-md px-0 pt-4">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

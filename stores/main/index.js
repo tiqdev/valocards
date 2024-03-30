@@ -11,6 +11,8 @@ const initialState = {
 
     isSheetOpen: false,
 
+    isPng: true,
+
     titles: [],
 
     tiers: [],
@@ -116,7 +118,12 @@ const MainSlice = createSlice({
 
         _setSheetOpen: (state, action) => {
             state.isSheetOpen = action.payload;
-        }
+        },
+
+        _setIsPng: (state, action) => {
+            state.isPng = action.payload;
+        },
+
 
     },
 
@@ -196,6 +203,6 @@ const MainSlice = createSlice({
 
 
 
-export const { _setLoading, _setCardPreview, _setLanguages, _setSelectedLanguage, _setFormData, _setSheetOpen } = MainSlice.actions;
+export const { _setLoading, _setCardPreview, _setLanguages, _setSelectedLanguage, _setFormData, _setSheetOpen, _setIsPng } = MainSlice.actions;
 
 export default MainSlice.reducer;

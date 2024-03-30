@@ -39,3 +39,7 @@ export const useTiers = () => {
 export const useSheetOpen = () => {
   return useSelector((state) => state.main.isSheetOpen);
 };
+
+export const useIsPng = () => {
+  return useSelector((state) => state.main.isPng);
+};

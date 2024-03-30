@@ -6,6 +6,7 @@ import {
   _getTitles,
   _setCardPreview,
   _setFormData,
+  _setIsPng,
   _setLanguages,
   _setLoading,
   _setSelectedLanguage,
@@ -50,4 +51,8 @@ export const getTiers = async () => {
 
 export const setSheetOpen = (isOpen) => {
   store.dispatch(_setSheetOpen(isOpen));
+};
+
+export const setIsPng = (isPng) => {
+  store.dispatch(_setIsPng(isPng));
 };

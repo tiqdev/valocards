@@ -37,6 +37,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <Provider store={store}>
+        <head>
+          <title>Hello world</title>
+          <meta
+            property="og:image"
+            content="https://valocards.vercel.app/valocards_og.png"
+          />
+        </head>
+
         <body
           className={cn(
             "min-h-svh h-svh font-sans antialiased",
@@ -49,7 +57,7 @@ export default function RootLayout({ children }) {
             enableSystem
             disableTransitionOnChange
           >
-            <div className="h-full w-full dark:bg-black bg-white  dark:bg-grid-white/[0.1] bg-grid-black/[0.1] relative flex items-center justify-center">
+            <div className="h-full w-full dark:bg-black bg-white  dark:bg-grid-red-600/[0.2] bg-grid-black/[0.1] relative flex items-center justify-center">
               {/* Radial gradient for the container to give a faded look */}
               <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_10%,black)]"></div>
               <div className=" z-20">

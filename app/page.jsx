@@ -3,16 +3,20 @@
 import SheetForm from "@/components/form-sheet";
 import BannerPreview from "@/components/preview-banner";
 import CardPreview from "@/components/preview-card";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 
 import {
   getAgents,
   getPlayerCards,
   getTiers,
   getTitles,
+  setIsPng,
 } from "@/stores/main/actions";
 import {
   useAgents,
   useCardPreview,
+  useIsPng,
   usePlayerCards,
   useTiers,
   useTitles,
@@ -25,6 +29,7 @@ export default function Home() {
   let agents = useAgents();
   let tiers = useTiers();
   let playerCards = usePlayerCards();
+  let isPng = useIsPng();
 
   useEffect(() => {
     if (titles.length === 0) {
@@ -45,8 +50,22 @@ export default function Home() {
   }, [agents.length, playerCards.length, tiers.length, titles.length]);
 
   return (
-    <main className="flex min-h-svh w-full flex-col items-center justify-center md:gap-12 gap-4 absolute top-0 left-0 ">
+    <main className="flex min-h-svh w-full flex-col items-center justify-center gap-6 absolute top-0 left-0 ">
       {cardPreview.type === "card" && <CardPreview />}
+      {cardPreview.type === "card" && (
+        <>
+          <div className="flex items-center space-x-2">
+            <Switch
+              id="shape"
+              checked={isPng}
+              onCheckedChange={(value) => {
+                setIsPng(value);
+              }}
+            />
+            <Label htmlFor="shape">.png format</Label>
+          </div>
+        </>
+      )}
       {cardPreview.type === "banner" && <BannerPreview />}
       <SheetForm />
     </main>
