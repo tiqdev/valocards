@@ -50,6 +50,8 @@ export default function RootLayout({ children }) {
             type="image/x-icon"
             sizes="16x16"
           />
+
+          <link rel="shortcut icon" href="/static/favicon.ico" />
           <meta
             name="description"
             content="Valorant Player Card Generator is a tool to create custom player cards for Valorant players."
