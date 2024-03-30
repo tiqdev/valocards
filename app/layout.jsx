@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
           <meta name="title" content="ValoCards | tiqdev" />
           <link
             rel="icon"
-            href="/favicon.ico"
+            href="/img/favicon.ico"
             type="image/x-icon"
             sizes="16x16"
           ></link>
