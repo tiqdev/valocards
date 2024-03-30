@@ -31,10 +31,10 @@ const MenuBar = () => {
       element = document.getElementById("banner-preview");
     }
 
-    toJpeg(element, { includeQueryParams: true })
+    toPng(element, { includeQueryParams: true })
       .then((dataUrl) => {
         const link = document.createElement("a");
-        link.download = cardPreview.username + "_card.jpeg";
+        link.download = cardPreview.username + "_card.png";
         link.href = dataUrl;
         link.click();
       })
