@@ -17,22 +17,6 @@ const fontSans = FontSans({
   variable: "--font-sans",
 });
 
-/*TODO:
-    - Sidebar
-    [x] add dropdown for selecting different player titles
-    [x] add input field for player username
-    [x] add select card image button for oppening dialog for selecting image 
-    [x] sidebar ı sheet ile değiştir.
-    [] animasyonlar ekle.
-    [] toast mesajları ekle.
-    [] temaları düzenle.
-    [] rank seçme kısmını da ekle.
-    [] background image ekle.
-    [] card border a bak düzenle.
-    [] card image yüklenene kadar skeleton göster.
-
-*/
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
