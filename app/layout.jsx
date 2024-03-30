@@ -49,11 +49,17 @@ export default function RootLayout({ children }) {
             enableSystem
             disableTransitionOnChange
           >
-            <Logo />
-            <ToggleTheme />
-            <MenuBar />
-            <Toaster position="bottom-center" richColors />
-            <div className="w-full">{children}</div>
+            <div className="h-full w-full dark:bg-black bg-white  dark:bg-grid-white/[0.1] bg-grid-black/[0.1] relative flex items-center justify-center">
+              {/* Radial gradient for the container to give a faded look */}
+              <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_10%,black)]"></div>
+              <div className=" z-20">
+                <Logo />
+                <ToggleTheme />
+                <MenuBar />
+                <Toaster position="bottom-center" richColors />
+                <div className="w-full">{children}</div>
+              </div>
+            </div>
           </ThemeProvider>
         </body>
       </Provider>

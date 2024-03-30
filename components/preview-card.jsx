@@ -7,7 +7,7 @@ const CardPreview = () => {
   const card = useCardPreview();
 
   return (
-    <div className="w-[268px] h-[640px] scale-80 md:scale-100 relative">
+    <div className="w-[268px] h-[640px] scale-80 md:scale-100 relative ">
       <h2 className="absolute bottom-[214px] left-1/2 -translate-x-1/2 z-20 font-medium text-[16px] text-black">
         {card.username}
       </h2>
@@ -29,7 +29,7 @@ const CardPreview = () => {
         width={268}
         height={640}
         alt="{card.cardName}"
-        className="absolute top-0 left-0 w-full h-full object-contain z-10"
+        className="absolute top-0 left-0 w-full h-full object-contain z-10 "
       />
 
       <div className="relative h-full w-full">
@@ -41,7 +41,7 @@ const CardPreview = () => {
           className="absolute top-0 left-0 w-full h-full object-contain z-0"
           style={{
             clipPath: "polygon(50% 94%, 100% 76%, 100% 0, 0 0, 0 76%)",
-            maskImage: "linear-gradient(to top, transparent 0%, black 60%)",
+            maskImage: "linear-gradient(to top, transparent 0%, black 30%)",
           }}
         />
       </div>
