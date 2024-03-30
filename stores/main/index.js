@@ -21,16 +21,16 @@ const initialState = {
 
     cardPreview: {
         title: "YR 1",
-        username: "Lally",
-        agentName: "Clove",
-        agentImage: "https://media.valorant-api.com/agents/1dbf2edd-4729-0984-3115-daa5eed44993/displayicon.png",
+        username: "Zena",
+        agentName: "OMEN",
+        agentImage: "https://media.valorant-api.com/agents/8e253930-4c05-31dd-1b6c-968525494517/displayicon.png",
         cardImage:
-            "https://media.valorant-api.com/playercards/e6529e9c-4a2b-c31c-7252-e185a8ce4a04/largeart.png",
-        cardName: "Beta Kartı",
-        bannerImage: "https://media.valorant-api.com/playercards/e6529e9c-4a2b-c31c-7252-e185a8ce4a04/wideart.png",
+            "https://media.valorant-api.com/playercards/504f38e4-4874-845c-ccb6-a3aec7a3a1eb/largeart.png",
+        cardName: "Omen Kartı",
+        bannerImage: "https://media.valorant-api.com/playercards/504f38e4-4874-845c-ccb6-a3aec7a3a1eb/wideart.png",
         type: "card",
-        tierName: "Radiant",
-        tierIcon: "https://media.valorant-api.com/competitivetiers/564d8e28-c226-3180-6285-e48a390db8b1/7/largeicon.png",
+        tierName: "ÖLÜMSÜZLÜK 3",
+        tierIcon: "https://media.valorant-api.com/competitivetiers/564d8e28-c226-3180-6285-e48a390db8b1/23/largeicon.png",
     },
 
     formData: {
