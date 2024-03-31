@@ -9,12 +9,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { setSelectedLanguage } from "@/stores/main/actions";
-import { useLanguages, useSelectedLanguage } from "@/stores/main/hooks";
+import {
+  useLanguages,
+  useSelectedLanguage,
+  useTranslations,
+} from "@/stores/main/hooks";
 import { Languages } from "lucide-react";
 
 const SelectLanguage = () => {
   const selectedLanguage = useSelectedLanguage();
   const languages = useLanguages();
+  const translations = useTranslations();
 
   return (
     <div className="absolute right-12 top-12 z-40">
@@ -25,14 +30,15 @@ const SelectLanguage = () => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-24">
-          <DropdownMenuLabel>Language</DropdownMenuLabel>
+          <DropdownMenuLabel>{translations.language_label}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuRadioGroup
-            value={selectedLanguage}
+            value={selectedLanguage.name}
+            defaultValue={selectedLanguage.name}
             onValueChange={setSelectedLanguage}
           >
             {languages.map((lang) => (
-              <DropdownMenuRadioItem key={lang.value} value={lang}>
+              <DropdownMenuRadioItem key={lang.value} value={lang.name}>
                 {lang.name}
               </DropdownMenuRadioItem>
             ))}

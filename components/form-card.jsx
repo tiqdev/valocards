@@ -12,7 +12,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -36,6 +35,7 @@ import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import Image from "next/image";
 import { SheetClose } from "./ui/sheet";
 import { toast } from "sonner";
+import { useTranslations } from "@/stores/main/hooks";
 
 const CardForm = () => {
   const titles = useTitles();
@@ -44,6 +44,7 @@ const CardForm = () => {
   const playerCards = usePlayerCards();
   const cardPreview = useCardPreview();
   const formData = useFormData();
+  const translations = useTranslations();
 
   const onSubmit = (data) => {
     console.log(data);
@@ -118,10 +119,13 @@ const CardForm = () => {
                 <FormLabel
                   className={field.value === "" ? "text-primary font-bold" : ""}
                 >
-                  Username
+                  {translations.username}
                 </FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="Your cool username" />
+                  <Input
+                    {...field}
+                    placeholder={translations.select_username}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -136,7 +140,7 @@ const CardForm = () => {
                 <FormLabel
                   className={field.value === "" ? "text-primary font-bold" : ""}
                 >
-                  Title
+                  {translations.title}
                 </FormLabel>
 
                 <Select
@@ -145,14 +149,15 @@ const CardForm = () => {
                 >
                   <FormControl>
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select a title" />
+                      <SelectValue placeholder={translations.select_title} />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
                     {titles
                       .filter(
                         (item) =>
-                          item.titleText !== "VCT MASTERS REYKJAVIK GALİBİ"
+                          item.titleText !== "VCT MASTERS REYKJAVIK GALİBİ" &&
+                          item.titleText !== "VCT Masters Reykjavik Winner"
                       )
                       .map((item) => {
                         return (
@@ -180,7 +185,7 @@ const CardForm = () => {
                 <FormLabel
                   className={field.value === "" ? "text-primary font-bold" : ""}
                 >
-                  Agent
+                  {translations.agent}
                 </FormLabel>
 
                 <Select
@@ -189,7 +194,7 @@ const CardForm = () => {
                 >
                   <FormControl>
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select an agent" />
+                      <SelectValue placeholder={translations.select_agent} />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -219,7 +224,7 @@ const CardForm = () => {
                 <FormLabel
                   className={field.value === "" ? "text-primary font-bold" : ""}
                 >
-                  Tier
+                  {translations.tier}
                 </FormLabel>
 
                 <Select
@@ -228,7 +233,7 @@ const CardForm = () => {
                 >
                   <FormControl>
                     <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select a tier" />
+                      <SelectValue placeholder={translations.select_tier} />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -254,7 +259,7 @@ const CardForm = () => {
                 <FormLabel
                   className={field.value === "" ? "text-primary font-bold" : ""}
                 >
-                  Card
+                  {translations.card}
                 </FormLabel>
                 <ScrollArea className="h-[400px] min-h-72 rounded-md border p-4">
                   <ul className="flex flex-col gap-5">
@@ -294,7 +299,7 @@ const CardForm = () => {
           />
 
           <SheetClose asChild>
-            <Button type="submit">Generate</Button>
+            <Button type="submit"> {translations.generate_button}</Button>
           </SheetClose>
         </form>
       </Form>

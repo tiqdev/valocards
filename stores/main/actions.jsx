@@ -18,8 +18,14 @@ export const setIsLoading = (isLoading) => {
 };
 
 export const setSelectedLanguage = (language) => {
-  console.log(language, language);
-  store.dispatch(_setSelectedLanguage(language));
+  let selectedLanguage = store
+    .getState()
+    .main.languages.find((lang) => lang.name === language);
+
+  const selectedLanguageJson = JSON.stringify(selectedLanguage);
+  localStorage.setItem("selectedLanguage", selectedLanguageJson);
+
+  store.dispatch(_setSelectedLanguage(selectedLanguage));
 };
 
 export const setLanguages = (languages) => {

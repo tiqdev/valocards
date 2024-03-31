@@ -12,12 +12,14 @@ import {
   getTiers,
   getTitles,
   setIsPng,
+  setSelectedLanguage,
 } from "@/stores/main/actions";
 import {
   useAgents,
   useCardPreview,
   useIsPng,
   usePlayerCards,
+  useSelectedLanguage,
   useTiers,
   useTitles,
 } from "@/stores/main/hooks";
@@ -30,6 +32,7 @@ export default function Home() {
   let tiers = useTiers();
   let playerCards = usePlayerCards();
   let isPng = useIsPng();
+  let selectedLanguage = useSelectedLanguage();
 
   useEffect(() => {
     if (titles.length === 0) {
@@ -48,6 +51,20 @@ export default function Home() {
       getTiers();
     }
   }, [agents.length, playerCards.length, tiers.length, titles.length]);
+
+  useEffect(() => {
+    getTitles();
+    getTiers();
+  }, [selectedLanguage]);
+
+  useEffect(() => {
+    const selectedLanguageFromLocalStorage =
+      localStorage.getItem("selectedLanguage");
+
+    if (selectedLanguageFromLocalStorage) {
+      setSelectedLanguage(JSON.parse(selectedLanguageFromLocalStorage).name);
+    }
+  }, []);
 
   return (
     <main className="flex min-h-svh w-full flex-col items-center justify-center gap-6 absolute top-0 left-0 ">

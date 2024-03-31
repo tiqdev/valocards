@@ -20,8 +20,8 @@ const fontSans = FontSans({
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <Provider store={store}>
+    <Provider store={store}>
+      <html>
         <PageHead />
 
         <body
@@ -48,7 +48,7 @@ export default function RootLayout({ children }) {
             </div>
           </ThemeProvider>
         </body>
-      </Provider>
-    </html>
+      </html>
+    </Provider>
   );
 }

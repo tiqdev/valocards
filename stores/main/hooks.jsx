@@ -43,3 +43,22 @@ export const useSheetOpen = () => {
 export const useIsPng = () => {
   return useSelector((state) => state.main.isPng);
 };
+
+export const useTranslations = () => {
+  let _translations = useSelector((state) => {
+    let selectedLanguage = state.main.selectedLanguage;
+    let translations = state.main.translations;
+
+    let translationValue = Object.keys(translations).find(
+      (key) => key === selectedLanguage.value
+    );
+
+    if (translationValue) {
+      return translations[translationValue];
+    } else {
+      return null; // or handle the case when the key is not found
+    }
+  });
+
+  return _translations;
+};

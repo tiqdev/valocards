@@ -5,9 +5,46 @@ const initialState = {
     isLoading: false,
     selectedLanguage: { name: "Türkçe", value: "tr-TR" },
     languages: [
-        { name: "English", value: "en-US" },
-        { name: "Türkçe", value: "tr-TR" },
+        { name: "English", value: "en-US", flag: "🇺s", short: "en" },
+        { name: "Türkçe", value: "tr-TR", flag: "🇹🇰", short: "tr" },
     ],
+
+    translations: {
+        "en-US": {
+            "username": "Username",
+            "select_username": "Your cool username",
+            "title": "Title",
+            "select_title": "Select a title",
+            "agent": "Agent",
+            "select_agent": "Select an agent",
+            "tier": "Tier",
+            "select_tier": "Select a tier",
+            "card": "Player Card",
+            "generate_button": "Generate",
+            "language_label": "Language",
+            "vertical_label": "Vertical",
+            "horizontal_label": "Horizontal",
+            "edit_label": "Edit",
+            "download_label": "Download"
+        },
+        "tr-TR": {
+            "username": "Kullanıcı Adı",
+            "select_username": "Havalı kullanıcı adınız",
+            "title": "Ünvan",
+            "select_title": "Bir ünvan seçin",
+            "agent": "Ajan",
+            "select_agent": "Bir ajan seçin",
+            "tier": "Derece",
+            "select_tier": "Bir derece seçin",
+            "card": "Oyuncu Kartı",
+            "generate_button": "Oluştur",
+            "language_label": "Dil",
+            "vertical_label": "Dikey",
+            "horizontal_label": "Yatay",
+            "edit_label": "Düzenle",
+            "download_label": "İndir"
+        },
+    },
 
     isSheetOpen: false,
 
@@ -18,7 +55,6 @@ const initialState = {
     tiers: [],
 
     agents: [],
-
     playerCards: [],
 
     cardPreview: {
@@ -47,7 +83,6 @@ const initialState = {
         isError: false,
         message: "",
     },
-
 };
 
 
@@ -65,7 +100,6 @@ export const _getTitles = createAsyncThunk(
     'main/getTitles',
     async (payload, { dispatch, getState }) => {
         let state = getState();
-        if (state.main.titles.length > 0) return state.main.titles;
         const response = await axios.get('https://valorant-api.com/v1/playertitles?language=' + state.main.selectedLanguage.value);
         return response.data;
     }
@@ -85,7 +119,6 @@ export const _getTiers = createAsyncThunk(
     'main/getTiers',
     async (payload, { dispatch, getState }) => {
         let state = getState();
-        if (state.main.tiers.length > 0) return state.main.tiers;
         const response = await axios.get('https://valorant-api.com/v1/competitivetiers?language=' + state.main.selectedLanguage.value);
         return response.data;
     }
@@ -123,8 +156,6 @@ const MainSlice = createSlice({
         _setIsPng: (state, action) => {
             state.isPng = action.payload;
         },
-
-
     },
 
     extraReducers: (builder) => {
