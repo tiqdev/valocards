@@ -1,12 +1,12 @@
 import Head from "next/head";
 
 const PageHead = () => (
-  <Head>
-    <meta name="theme-color" content={"#291911"} id="theme-color-meta" />
+  <head>
+    <title>ValoCards | tiqdev</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>ValoCards | tiqdev</title>
     <meta name="title" content="ValoCards | tiqdev" />
+    <meta property="og:title" content="ValoCards | tiqdev" key="title" />
     <meta
       name="description"
       content="Valorant Player Card Generator is a tool to create custom player cards for Valorant players."
@@ -42,7 +42,7 @@ const PageHead = () => (
       property="og:image"
       content="https://valocards.vercel.app/valocards_og.png"
     />
-  </Head>
+  </head>
 );
 
 export default PageHead;
