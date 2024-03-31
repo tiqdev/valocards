@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+<div align="center">
+  <img width="1200" alt="valocards_og" src="https://github.com/tiqdev/valocards/assets/40075395/c00a6482-9985-4dc4-98fb-09273bfcb858">
+</div>
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# 🔴 ValoCards 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ValoCards is a tool for creating custom player cards for Valorant players. You can customize your Valorant player cards in any way you like and download them!
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## ⭐️ Customize Your Valorant Experience: Create Personalized Cards with the Game's API 
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Using Valorant's API, you can create personalized cards by selecting from the current titles, agents, ranks, and player cards available in the game, and download them both vertically and horizontally
+- The application offers two language options. You can choose titles and rank names in your preferred language.
+- I developed this project using the latest version of Next.js along with Tailwind CSS, Shadcn/UI, Redux Toolkit, and Framer Motion.
+- The quality of the visuals in the project created by directly taking visuals from the game is not dependent on us.
 
-## Learn More
+## 📷 Screenshots 
 
-To learn more about Next.js, take a look at the following resources:
+![ValoCards3](https://github.com/tiqdev/valocards/assets/40075395/d17a4cdf-6a7b-45ec-a8aa-29cae4601c44)
+![ValoCards2](https://github.com/tiqdev/valocards/assets/40075395/7e18337c-a856-46fe-a011-0d3d50ab2a7a)
+![ValoCards1](https://github.com/tiqdev/valocards/assets/40075395/55878f74-0d1b-4830-9eb3-bdecd60dc778)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎉 Outputs 
+![tiqdev_card (1)](https://github.com/tiqdev/valocards/assets/40075395/0f50a9d6-0ef1-46de-91c1-76d5abaaa831)
+![tiqdev_card](https://github.com/tiqdev/valocards/assets/40075395/49541837-2821-487b-9832-89a345ddeec3)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## ❤️ [Live Web App ](https://valocards.vercel.com)
+Built by [tiqdev 💛](https://tiqdev.com) 
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+MIT
