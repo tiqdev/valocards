@@ -8,6 +8,7 @@ import {
 import { setCardPreview, setSheetOpen } from "@/stores/main/actions";
 import { useCardPreview } from "@/stores/main/hooks";
 import { toPng, toJpeg } from "html-to-image";
+import { toast } from "sonner";
 
 const MenuBar = () => {
   let cardPreview = useCardPreview();
@@ -23,6 +24,7 @@ const MenuBar = () => {
   };
 
   const handleDownloadImage = async () => {
+    toast.info("Downloading image...");
     let element;
 
     if (cardPreview.type === "card") {
@@ -38,8 +40,8 @@ const MenuBar = () => {
         link.href = dataUrl;
         link.click();
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        toast.error("An error occurred while downloading the image");
       });
   };
 
@@ -54,7 +56,7 @@ const MenuBar = () => {
           tabChange(value);
         }
       }}
-      className="w-[400px] flex flex-row items-center justify-center absolute bottom-12 left-1/2 -translate-x-1/2 z-40"
+      className="md:w-[400px] w-[300] flex flex-row items-center justify-center absolute bottom-12 left-1/2 -translate-x-1/2 z-40"
     >
       <ToggleGroupItem value="card" aria-label="card">
         <RectangleVertical className="h-4 w-4" />

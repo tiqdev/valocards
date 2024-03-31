@@ -284,6 +284,7 @@ const CardForm = () => {
                               src={item.wideArt}
                               alt="Image"
                               fill
+                              quality={100}
                               className="rounded-md object-cover transition-all duration-300 ease-in-out cursor-pointer"
                             />
                           </AspectRatio>

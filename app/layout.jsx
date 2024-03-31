@@ -42,7 +42,7 @@ export default function RootLayout({ children }) {
                 <Logo />
                 <SelectLanguage />
                 <MenuBar />
-                <Toaster position="bottom-center" richColors />
+                <Toaster position="top-center" richColors />
                 <div className="w-full">{children}</div>
               </div>
             </div>

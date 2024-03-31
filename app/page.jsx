@@ -23,7 +23,9 @@ import {
   useTiers,
   useTitles,
 } from "@/stores/main/hooks";
+import { AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 export default function Home() {
   let cardPreview = useCardPreview();
@@ -66,24 +68,60 @@ export default function Home() {
     }
   }, []);
 
+  const cardVariants = {
+    hidden: {
+      opacity: 0,
+      x: -20,
+    },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.3,
+      },
+    },
+  };
+
   return (
-    <main className="flex min-h-svh w-full flex-col items-center justify-center gap-6 absolute top-0 left-0 ">
-      {cardPreview.type === "card" && <CardPreview />}
-      {cardPreview.type === "card" && (
-        <>
-          <div className="flex items-center space-x-2">
-            <Switch
-              id="shape"
-              checked={isPng}
-              onCheckedChange={(value) => {
-                setIsPng(value);
-              }}
-            />
-            <Label htmlFor="shape">.png format</Label>
-          </div>
-        </>
-      )}
-      {cardPreview.type === "banner" && <BannerPreview />}
+    <main className="flex min-h-svh w-full flex-col items-center justify-center absolute top-0 left-0 ">
+      <AnimatePresence mode="wait">
+        {cardPreview.type === "card" && (
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={cardVariants}
+            exit="hidden"
+            className="flex flex-col items-center md:gap-4 gap-0"
+            key={"card"}
+          >
+            <CardPreview />
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="shape"
+                checked={isPng}
+                onCheckedChange={(value) => {
+                  setIsPng(value);
+                }}
+              />
+              <Label htmlFor="shape">.png format</Label>
+            </div>
+          </motion.div>
+        )}
+
+        {cardPreview.type === "banner" && (
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={cardVariants}
+            exit="hidden"
+            className="flex flex-col items-center gap-4"
+            key={"banner"}
+          >
+            <BannerPreview />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <SheetForm />
     </main>
   );

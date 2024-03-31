@@ -87,6 +87,9 @@ module.exports = {
       dropShadow: {
         "red": "0 0 20px rgba(255, 0, 0, 1)",
       },
+      screens: {
+        'tall': { 'raw': '(min-height: 800px)' },
+      }
     },
   },
   plugins: [

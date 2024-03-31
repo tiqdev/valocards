@@ -17,6 +17,7 @@ const BannerPreview = () => {
               src={banner.agentImage}
               width={114}
               height={120}
+              quality={100}
               objectFit="contain"
               alt="{card.playerCard}"
             />
@@ -25,6 +26,7 @@ const BannerPreview = () => {
             src={banner.bannerImage}
             width={452}
             height={128}
+            quality={100}
             alt="{card.playerCard}"
           />
         </div>

@@ -10,7 +10,7 @@ const SheetForm = () => {
 
   return (
     <Sheet open={isSheetOpen} onOpenChange={setSheetOpen}>
-      <SheetContent side={"left"} className="w-[340px] md:w-[400px] p-0 px-2">
+      <SheetContent side={"left"} className="w-[320px] md:w-[400px] p-0 px-2">
         <aside className="z-10 h-full flex flex-col gap-4 items-center justify-start py-6 px-4">
           <CardForm />
         </aside>

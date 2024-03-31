@@ -10,7 +10,10 @@ const CardPreview = () => {
   let isPng = useIsPng();
 
   return (
-    <div className="w-[268px] h-[640px] relative" id="card-preview">
+    <div
+      className="w-[268px] h-[640px] md:scale-100 transform scale-[0.85] relative"
+      id="card-preview"
+    >
       <h2 className="absolute bottom-[214px] left-1/2 -translate-x-1/2 z-20 font-medium text-[16px] text-black">
         {card.username}
       </h2>
@@ -23,6 +26,7 @@ const CardPreview = () => {
         src={card.tierIcon}
         width={60}
         height={60}
+        quality={100}
         alt="tier icon"
         className=" object-contain absolute bottom-[44px] left-1/2 -translate-x-1/2 z-40"
       />
@@ -31,6 +35,7 @@ const CardPreview = () => {
         src={"/card_border.png"}
         width={268}
         height={640}
+        quality={100}
         alt="card border"
         className="absolute top-0 left-[1px] w-full h-full object-contain z-10 "
       />
@@ -40,6 +45,7 @@ const CardPreview = () => {
           src={card.cardImage}
           width={268}
           height={640}
+          quality={100}
           alt="card image"
           className="absolute top-0 left-0 w-full h-full object-contain z-0"
           style={
