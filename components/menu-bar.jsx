@@ -12,7 +12,6 @@ import { toast } from "sonner";
 
 const MenuBar = () => {
   let cardPreview = useCardPreview();
-  console.log(cardPreview);
 
   const tabChange = (value) => {
     cardPreview = {

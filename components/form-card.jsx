@@ -47,8 +47,6 @@ const CardForm = () => {
   const translations = useTranslations();
 
   const onSubmit = (data) => {
-    console.log(data);
-
     const _formData = {
       title: data.title,
       username: data.username,
@@ -268,7 +266,6 @@ const CardForm = () => {
                         <li
                           key={item.uuid}
                           onClick={() => {
-                            console.log(item);
                             field.onChange(item);
                           }}
                         >

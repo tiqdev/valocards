@@ -180,7 +180,6 @@ const MainSlice = createSlice({
             .addCase(_getTitles.rejected, (state, action) => {
                 // API çağrısı başarısız olduğunda durumu güncelle
                 state.isLoading = false;
-                console.log(action.error.message);
             })
             .addCase(_getPlayerCards.pending, (state) => {
                 // API çağrısı başladığında durumu güncelle
@@ -190,12 +189,10 @@ const MainSlice = createSlice({
                 // API çağrısı başarılı olduğunda durumu güncelle
                 state.isLoading = false;
                 state.playerCards = action.payload.data;
-                console.log(action.payload.data);
             })
             .addCase(_getPlayerCards.rejected, (state, action) => {
                 // API çağrısı başarısız olduğunda durumu güncelle
                 state.isLoading = false;
-                console.log(action.error.message);
             })
             .addCase(_getAgents.pending, (state) => {
                 // API çağrısı başladığında durumu güncelle
@@ -205,12 +202,10 @@ const MainSlice = createSlice({
                 // API çağrısı başarılı olduğunda durumu güncelle
                 state.isLoading = false;
                 state.agents = action.payload.data;
-                console.log(action.payload.data);
             })
             .addCase(_getAgents.rejected, (state, action) => {
                 // API çağrısı başarısız olduğunda durumu güncelle
                 state.isLoading = false;
-                console.log(action.error.message);
             })
             .addCase(_getTiers.pending, (state) => {
                 // API çağrısı başladığında durumu güncelle
@@ -220,12 +215,10 @@ const MainSlice = createSlice({
                 // API çağrısı başarılı olduğunda durumu güncelle
                 state.isLoading = false;
                 state.tiers = action.payload.data[0].tiers.filter((tier) => tier.largeIcon !== null);
-                console.log(action.payload.data[0].tiers.filter((tier) => tier.largeIcon !== null));
             })
             .addCase(_getTiers.rejected, (state, action) => {
                 // API çağrısı başarısız olduğunda durumu güncelle
                 state.isLoading = false;
-                console.log(action.error.message);
             });
     },
 });
