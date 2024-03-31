@@ -26,6 +26,7 @@ import {
 import { AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
+import useIsMobile from "@/hooks/useIsMobile";
 
 export default function Home() {
   let cardPreview = useCardPreview();
@@ -35,6 +36,8 @@ export default function Home() {
   let playerCards = usePlayerCards();
   let isPng = useIsPng();
   let selectedLanguage = useSelectedLanguage();
+
+  let isMobile = useIsMobile();
 
   useEffect(() => {
     if (titles.length === 0) {
@@ -84,45 +87,55 @@ export default function Home() {
 
   return (
     <main className="flex min-h-svh w-full flex-col items-center justify-center absolute top-0 left-0 ">
-      <AnimatePresence mode="wait">
-        {cardPreview.type === "card" && (
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={cardVariants}
-            exit="hidden"
-            className="flex flex-col items-center md:gap-4 gap-0"
-            key={"card"}
-          >
-            <CardPreview />
-            <div className="flex items-center space-x-2">
-              <Switch
-                id="shape"
-                checked={isPng}
-                onCheckedChange={(value) => {
-                  setIsPng(value);
-                }}
-              />
-              <Label htmlFor="shape">.png format</Label>
-            </div>
-          </motion.div>
-        )}
+      {isMobile ? (
+        <div className="flex items-center justify-center">
+          <h1 className="text-md text-center font-bold">
+            This app is not supported on mobile
+          </h1>
+        </div>
+      ) : (
+        <>
+          <AnimatePresence mode="wait">
+            {cardPreview.type === "card" && (
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={cardVariants}
+                exit="hidden"
+                className="flex flex-col items-center md:gap-4 gap-0"
+                key={"card"}
+              >
+                <CardPreview />
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    id="shape"
+                    checked={isPng}
+                    onCheckedChange={(value) => {
+                      setIsPng(value);
+                    }}
+                  />
+                  <Label htmlFor="shape">.png format</Label>
+                </div>
+              </motion.div>
+            )}
 
-        {cardPreview.type === "banner" && (
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={cardVariants}
-            exit="hidden"
-            className="flex flex-col items-center gap-4"
-            key={"banner"}
-          >
-            <BannerPreview />
-          </motion.div>
-        )}
-      </AnimatePresence>
+            {cardPreview.type === "banner" && (
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={cardVariants}
+                exit="hidden"
+                className="flex flex-col items-center gap-4"
+                key={"banner"}
+              >
+                <BannerPreview />
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-      <SheetForm />
+          <SheetForm />
+        </>
+      )}
     </main>
   );
 }

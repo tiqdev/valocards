@@ -33,7 +33,7 @@ const MenuBar = () => {
       element = document.getElementById("banner-preview");
     }
 
-    toPng(element, { includeQueryParams: true })
+    toPng(element, { includeQueryParams: true, skipAutoScale: true })
       .then((dataUrl) => {
         const link = document.createElement("a");
         link.download = cardPreview.username + "_card.png";

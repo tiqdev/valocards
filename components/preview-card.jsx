@@ -10,10 +10,7 @@ const CardPreview = () => {
   let isPng = useIsPng();
 
   return (
-    <div
-      className="w-[268px] h-[640px] md:scale-100 transform scale-[0.85] relative"
-      id="card-preview"
-    >
+    <div className="w-[268px] h-[640px] relative" id="card-preview">
       <h2 className="absolute bottom-[214px] left-1/2 -translate-x-1/2 z-20 font-medium text-[16px] text-black">
         {card.username}
       </h2>

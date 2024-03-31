@@ -12,6 +12,7 @@ import MenuBar from "@/components/menu-bar";
 import Logo from "@/components/logo";
 import PageHead from "@/components/head";
 import SelectLanguage from "@/components/select-lang";
+import useIsMobile from "@/hooks/useIsMobile";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -19,6 +20,7 @@ const fontSans = FontSans({
 });
 
 export default function RootLayout({ children }) {
+  let isMobile = useIsMobile();
   return (
     <Provider store={store}>
       <html>
@@ -40,9 +42,14 @@ export default function RootLayout({ children }) {
               <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_10%,black)]"></div>
               <div className="z-20">
                 <Logo />
-                <SelectLanguage />
-                <MenuBar />
-                <Toaster position="top-center" richColors />
+                {isMobile ? null : (
+                  <>
+                    <SelectLanguage />
+                    <MenuBar />
+                    <Toaster position="top-center" richColors />
+                  </>
+                )}
+
                 <div className="w-full">{children}</div>
               </div>
             </div>
