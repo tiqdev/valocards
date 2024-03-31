@@ -13,6 +13,7 @@ import Logo from "@/components/logo";
 import PageHead from "@/components/head";
 import SelectLanguage from "@/components/select-lang";
 import useIsMobile from "@/hooks/useIsMobile";
+import FooterText from "@/components/footer-text";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -46,6 +47,7 @@ export default function RootLayout({ children }) {
                   <>
                     <SelectLanguage />
                     <MenuBar />
+                    <FooterText />
                     <Toaster position="top-center" richColors />
                   </>
                 )}
