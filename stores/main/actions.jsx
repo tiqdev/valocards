@@ -18,6 +18,7 @@ export const setIsLoading = (isLoading) => {
 };
 
 export const setSelectedLanguage = (language) => {
+  console.log(language, language);
   store.dispatch(_setSelectedLanguage(language));
 };
 

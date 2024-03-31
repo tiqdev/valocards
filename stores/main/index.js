@@ -5,8 +5,8 @@ const initialState = {
     isLoading: false,
     selectedLanguage: { name: "Türkçe", value: "tr-TR" },
     languages: [
-        { name: "Türkçe", value: "tr-TR" },
         { name: "English", value: "en-US" },
+        { name: "Türkçe", value: "tr-TR" },
     ],
 
     isSheetOpen: false,
