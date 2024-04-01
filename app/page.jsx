@@ -27,6 +27,7 @@ import { AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import useIsMobile from "@/hooks/useIsMobile";
+import FunPreview from "@/components/preview-fun";
 
 export default function Home() {
   let cardPreview = useCardPreview();
@@ -129,6 +130,19 @@ export default function Home() {
                 key={"banner"}
               >
                 <BannerPreview />
+              </motion.div>
+            )}
+
+            {cardPreview.type === "fun" && (
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={cardVariants}
+                exit="hidden"
+                className="flex flex-col items-center md:gap-4 gap-0"
+                key={"fun"}
+              >
+                <FunPreview />
               </motion.div>
             )}
           </AnimatePresence>

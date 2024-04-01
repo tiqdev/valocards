@@ -4,6 +4,7 @@ import {
   Pencil,
   RectangleHorizontal,
   RectangleVertical,
+  SprayCan,
 } from "lucide-react";
 import { setCardPreview, setSheetOpen } from "@/stores/main/actions";
 import { useCardPreview } from "@/stores/main/hooks";
@@ -28,8 +29,10 @@ const MenuBar = () => {
 
     if (cardPreview.type === "card") {
       element = document.getElementById("card-preview");
-    } else {
+    } else if (cardPreview.type === "banner") {
       element = document.getElementById("banner-preview");
+    } else {
+      element = document.getElementById("fun-preview");
     }
 
     toPng(element, { includeQueryParams: true, skipAutoScale: true })
@@ -39,7 +42,8 @@ const MenuBar = () => {
         link.href = dataUrl;
         link.click();
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         toast.error("An error occurred while downloading the image");
       });
   };
@@ -51,7 +55,7 @@ const MenuBar = () => {
       defaultValue={cardPreview.type}
       value={cardPreview.type}
       onValueChange={(value) => {
-        if (value === "card" || value === "banner") {
+        if (value === "card" || value === "banner" || value === "fun") {
           tabChange(value);
         }
       }}
@@ -63,7 +67,9 @@ const MenuBar = () => {
       <ToggleGroupItem value="banner" aria-label="banner">
         <RectangleHorizontal className="h-4 w-4" />
       </ToggleGroupItem>
-
+      <ToggleGroupItem value="fun" aria-label="fun">
+        <SprayCan className="h-4 w-4" />
+      </ToggleGroupItem>
       <ToggleGroupItem
         value="edit"
         aria-label="edit"
@@ -73,7 +79,6 @@ const MenuBar = () => {
       >
         <Pencil className="h-4 w-4" />
       </ToggleGroupItem>
-
       <ToggleGroupItem
         value="download"
         aria-label="download"
