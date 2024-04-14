@@ -25,7 +25,7 @@ ValoCards is a tool for creating custom player cards for Valorant players. You c
 ![tiqdev_card (1)](https://github.com/tiqdev/valocards/assets/40075395/0f50a9d6-0ef1-46de-91c1-76d5abaaa831)
 ![tiqdev_card](https://github.com/tiqdev/valocards/assets/40075395/49541837-2821-487b-9832-89a345ddeec3)
 
-## ❤️ [Live Web App ](https://valocards.vercel.com)
+## ❤️ [Live Web App ](https://valocards.vercel.app/)
 Built by [tiqdev 💛](https://tiqdev.com) 
 
 ## License
