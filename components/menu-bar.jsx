@@ -1,6 +1,7 @@
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import {
   Download,
+  Edit,
   Pencil,
   RectangleHorizontal,
   RectangleVertical,
@@ -77,7 +78,7 @@ const MenuBar = () => {
           setSheetOpen(true);
         }}
       >
-        <Pencil className="h-4 w-4" />
+        <Edit className="h-4 w-4" />
       </ToggleGroupItem>
       <ToggleGroupItem
         value="download"
