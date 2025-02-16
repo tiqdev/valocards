@@ -7,6 +7,7 @@ const initialState = {
     languages: [
         { name: "English", value: "en-US", flag: "🇺s", short: "en" },
         { name: "Türkçe", value: "tr-TR", flag: "🇹🇰", short: "tr" },
+        { name: "Русский", value: "ru-RU", flag: "🇷🇺🇺", short: "ru" },
     ],
 
     translations: {
@@ -43,6 +44,23 @@ const initialState = {
             "horizontal_label": "Yatay",
             "edit_label": "Düzenle",
             "download_label": "İndir"
+        },
+        "ru-RU": {
+            "username": "Имя пользователя",
+            "select_username": "Твоё круто имя пользователя",
+            "title": "Титул",
+            "select_title": "Выбери титул",
+            "agent": "Агент",
+            "select_agent": "Выбери агента",
+            "tier": "Ранг",
+            "select_tier": "Выбери ранг",
+            "card": "Карточка игрока",
+            "generate_button": "Генерировать",
+            "language_label": "Язык",
+            "vertical_label": "Вертикальное положение",
+            "horizontal_label": "Горизонтальное положение",
+            "edit_label": "Редактировать",
+            "download_label": "Скачать"
         },
     },
 
