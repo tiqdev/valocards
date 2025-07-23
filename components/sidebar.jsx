@@ -27,7 +27,7 @@ const Sidebar = () => {
 
       <div className="flex flex-row justify-between items-center w-full">
         <Link
-          href="https://tiqdev.com"
+          href="https://tiqdev.vercel.app"
           target="_blank"
           className="font-medium  text-zinc-950 dark:text-white"
         >
