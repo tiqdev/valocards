@@ -232,7 +232,7 @@ const MainSlice = createSlice({
             .addCase(_getTiers.fulfilled, (state, action) => {
                 // API çağrısı başarılı olduğunda durumu güncelle
                 state.isLoading = false;
-                state.tiers = action.payload.data[0].tiers.filter((tier) => tier.largeIcon !== null);
+                state.tiers = action.payload.data[action.payload.data.length -1].tiers.filter((tier) => tier.largeIcon !== null);
             })
             .addCase(_getTiers.rejected, (state, action) => {
                 // API çağrısı başarısız olduğunda durumu güncelle
