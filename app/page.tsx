@@ -1,141 +1,62 @@
-"use client";
-
-import SheetForm from "@/components/form-sheet";
-import BannerPreview from "@/components/preview-banner";
-import CardPreview from "@/components/preview-card";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-
+import type { Metadata } from "next";
 import {
-  getAgents,
-  getPlayerCards,
-  getTiers,
-  getTitles,
-  setIsPng,
-  setSelectedLanguage,
-} from "@/stores/main/actions";
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
+import { CARD_SIZE } from "@/components/card/player-card";
+import { Studio } from "@/components/studio/studio";
+import { cardImagePath } from "@/lib/card/config";
+import { getCatalog } from "@/lib/server/catalog";
 import {
-  useAgents,
-  useCardPreview,
-  useIsPng,
-  usePlayerCards,
-  useSelectedLanguage,
-  useTiers,
-  useTitles,
-} from "@/stores/main/hooks";
-import { AnimatePresence } from "framer-motion";
-import { useEffect } from "react";
-import { motion } from "framer-motion";
-import useIsMobile from "@/hooks/useIsMobile";
+  getInitialCardConfig,
+  type SearchParams,
+} from "@/lib/server/initial-config";
+import { catalogQueryKey } from "@/queries/catalog";
+import { CardStoreProvider } from "@/stores/card-store";
 
-export default function Home() {
-  let cardPreview = useCardPreview();
-  let titles = useTitles();
-  let agents = useAgents();
-  let tiers = useTiers();
-  let playerCards = usePlayerCards();
-  let isPng = useIsPng();
-  let selectedLanguage = useSelectedLanguage();
+interface PageProps {
+  searchParams: Promise<SearchParams>;
+}
 
-  let isMobile = useIsMobile();
+// Paylaşılan bir kart linki açıldığında sosyal medya önizlemesi kartın kendisi olur.
+export async function generateMetadata({
+  searchParams,
+}: PageProps): Promise<Metadata> {
+  const params = await searchParams;
+  if (!params.card) return {};
 
-  useEffect(() => {
-    if (titles.length === 0) {
-      getTitles();
-    }
-
-    if (playerCards.length === 0) {
-      getPlayerCards();
-    }
-
-    if (agents.length === 0) {
-      getAgents();
-    }
-
-    if (tiers.length === 0) {
-      getTiers();
-    }
-  }, [agents.length, playerCards.length, tiers.length, titles.length]);
-
-  useEffect(() => {
-    getTitles();
-    getTiers();
-  }, [selectedLanguage]);
-
-  useEffect(() => {
-    const selectedLanguageFromLocalStorage =
-      localStorage.getItem("selectedLanguage");
-
-    if (selectedLanguageFromLocalStorage) {
-      setSelectedLanguage(JSON.parse(selectedLanguageFromLocalStorage).name);
-    }
-  }, []);
-
-  const cardVariants = {
-    hidden: {
-      opacity: 0,
-      x: -20,
-    },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.3,
-      },
-    },
+  const config = await getInitialCardConfig(params);
+  const size = CARD_SIZE[config.layout];
+  const image = {
+    url: cardImagePath(config),
+    width: size.width * 2,
+    height: size.height * 2,
+    alt: `${config.name} — ValoCards`,
   };
 
+  return {
+    title: `${config.name} | ValoCards`,
+    openGraph: { images: image },
+    twitter: { images: image },
+  };
+}
+
+export default async function Home({ searchParams }: PageProps) {
+  const config = await getInitialCardConfig(await searchParams);
+
+  // Katalog sunucuda hazırlanır; sayfa boş açılıp sonradan dolmaz.
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: catalogQueryKey(config.lang),
+    queryFn: () => getCatalog(config.lang),
+  });
+
   return (
-    <main className="flex min-h-svh w-full flex-col items-center justify-center absolute top-0 left-0 ">
-      {isMobile ? (
-        <div className="flex items-center justify-center">
-          <h1 className="text-md text-center font-bold">
-            This app is not supported on mobile
-          </h1>
-        </div>
-      ) : (
-        <>
-          <AnimatePresence mode="wait">
-            {cardPreview.type === "card" && (
-              <motion.div
-                initial="hidden"
-                animate="visible"
-                variants={cardVariants}
-                exit="hidden"
-                className="flex flex-col items-center md:gap-4 gap-0"
-                key={"card"}
-              >
-                <CardPreview />
-                <div className="flex items-center space-x-2">
-                  <Switch
-                    id="shape"
-                    checked={isPng}
-                    onCheckedChange={(value) => {
-                      setIsPng(value);
-                    }}
-                  />
-                  <Label htmlFor="shape">.png format</Label>
-                </div>
-              </motion.div>
-            )}
-
-            {cardPreview.type === "banner" && (
-              <motion.div
-                initial="hidden"
-                animate="visible"
-                variants={cardVariants}
-                exit="hidden"
-                className="flex flex-col items-center gap-4"
-                key={"banner"}
-              >
-                <BannerPreview />
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          <SheetForm />
-        </>
-      )}
-    </main>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <CardStoreProvider initialConfig={config}>
+        <Studio />
+      </CardStoreProvider>
+    </HydrationBoundary>
   );
 }
