@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import Image from "next/image";
 import { useStudioCatalog } from "@/hooks/use-studio-catalog";
 import { tierIcon } from "@/lib/card/assets";
+import { withAlpha } from "@/lib/card/color";
 import { cn } from "@/lib/utils";
 import { useCardStore } from "@/stores/card-store";
 import type { Catalog, CatalogTier } from "@/types/catalog";
@@ -33,7 +34,10 @@ export const RankPicker = () => {
     <div className="grid grid-cols-2 gap-x-4 gap-y-5 sm:grid-cols-3 lg:grid-cols-2">
       {divisions.map(([division, tiers]) => (
         <div key={division} className="flex flex-col gap-2">
-          <span className="font-display text-xs uppercase tracking-widest text-muted-foreground">
+          <span
+            className="font-display text-xs uppercase tracking-widest"
+            style={{ color: tiers[0]?.color }}
+          >
             {division}
           </span>
           <div className="flex gap-1.5">
@@ -48,11 +52,20 @@ export const RankPicker = () => {
                   aria-label={tier.name}
                   aria-pressed={selected}
                   onClick={() => update({ tier: tier.tier })}
+                  // Seçili rank kendi renginde vurgulanır.
+                  style={
+                    selected
+                      ? {
+                          borderColor: tier.color,
+                          backgroundColor: withAlpha(tier.color, 0.15),
+                          boxShadow: `0 0 16px ${withAlpha(tier.color, 0.35)}`,
+                        }
+                      : undefined
+                  }
                   className={cn(
                     "relative size-14 rounded-sm border p-1.5 outline-none transition focus-visible:ring-2 focus-visible:ring-ring",
-                    selected
-                      ? "border-primary bg-primary/10"
-                      : "border-transparent opacity-60 hover:border-border hover:bg-muted hover:opacity-100"
+                    !selected &&
+                      "border-transparent opacity-60 hover:border-border hover:bg-muted hover:opacity-100"
                   )}
                 >
                   <Image

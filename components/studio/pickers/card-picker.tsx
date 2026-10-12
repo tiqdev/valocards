@@ -4,10 +4,19 @@ import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { Check, Search } from "lucide-react";
+import {
+  ContentFilter,
+  RareBadge,
+} from "@/components/studio/pickers/content-filter";
 import { Input } from "@/components/ui/input";
 import { useStudioCatalog } from "@/hooks/use-studio-catalog";
 import { useTranslations } from "@/hooks/use-translations";
 import { cardArt } from "@/lib/card/assets";
+import {
+  countByContentFilter,
+  matchesContentFilter,
+  type ContentFilter as ContentFilterValue,
+} from "@/lib/card/filter";
 import { cn } from "@/lib/utils";
 import { useCardStore } from "@/stores/card-store";
 import type { Catalog } from "@/types/catalog";
@@ -26,14 +35,22 @@ export const CardPicker = () => {
 
   const [query, setQuery] = useState("");
   const deferredQuery = useDeferredValue(query);
+  const [filter, setFilter] = useState<ContentFilterValue>("all");
+
+  const counts = useMemo(() => countByContentFilter(cards), [cards]);
 
   const filtered = useMemo(() => {
     const search = deferredQuery.trim().toLocaleLowerCase(lang);
-    if (!search) return cards;
-    return cards.filter((card) =>
-      card.name.toLocaleLowerCase(lang).includes(search)
+    return cards.filter(
+      (card) =>
+        matchesContentFilter(card, filter) &&
+        (!search ||
+          // Kaynağa göre de aranabilir: "gekko" -> Gekko Teçhizatı kartları
+          `${card.name} ${card.source?.name ?? ""}`
+            .toLocaleLowerCase(lang)
+            .includes(search))
     );
-  }, [cards, deferredQuery, lang]);
+  }, [cards, deferredQuery, filter, lang]);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const [tileSize, setTileSize] = useState(96);
@@ -81,14 +98,27 @@ export const CardPicker = () => {
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
-      <div className="relative border-b p-3">
-        <Search className="pointer-events-none absolute top-1/2 left-6 size-4 -translate-y-1/2 text-muted-foreground" />
-        <Input
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          placeholder={t.search_cards}
-          className="pl-9"
-          type="search"
+      <div className="flex flex-col gap-2 border-b p-3">
+        <div className="relative">
+          <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            value={query}
+            onChange={(event) => {
+              setQuery(event.target.value);
+              virtualizer.scrollToOffset(0);
+            }}
+            placeholder={t.search_cards}
+            className="pl-9"
+            type="search"
+          />
+        </div>
+        <ContentFilter
+          value={filter}
+          counts={counts}
+          onChange={(next) => {
+            setFilter(next);
+            virtualizer.scrollToOffset(0);
+          }}
         />
       </div>
 
@@ -121,7 +151,12 @@ export const CardPicker = () => {
                       <button
                         key={card.id}
                         type="button"
-                        title={card.name}
+                        title={
+                          card.source
+                            ? `${card.name}
+${card.source.name}`
+                            : card.name
+                        }
                         aria-label={card.name}
                         aria-pressed={selected}
                         onClick={() => update({ cardId: card.id })}
@@ -139,6 +174,9 @@ export const CardPicker = () => {
                           unoptimized
                           className="object-cover transition-transform duration-300 group-hover:scale-110"
                         />
+                        {card.rare && (
+                          <RareBadge className="absolute top-1 left-1" />
+                        )}
                         {selected && (
                           <span className="absolute top-1 right-1 flex size-5 items-center justify-center rounded-full bg-primary text-primary-foreground">
                             <Check className="size-3" />

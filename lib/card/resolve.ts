@@ -18,6 +18,7 @@ export interface CardData {
   cardWideArt: string;
   tierName: string;
   tierIcon: string;
+  tierColor: string;
   fade: boolean;
 }
 
@@ -70,6 +71,7 @@ export const resolveCardData = (
     cardWideArt: cardArt(cardId, "wideart"),
     tierName: tier?.name ?? "",
     tierIcon: tierIcon(catalog.tierSetId, tierNumber),
+    tierColor: tier?.color ?? "#ffffff",
     fade: config.fade,
   };
 };

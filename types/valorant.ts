@@ -62,3 +62,32 @@ export interface CompetitiveTierSet {
   tiers: Tier[];
   assetPath: string;
 }
+
+export interface ContractReward {
+  type: string;
+  uuid: string;
+  amount: number;
+  isHighlighted: boolean;
+}
+
+export interface Contract {
+  uuid: string;
+  displayName: string;
+  content: {
+    relationType: "Agent" | "Event" | "Season" | null;
+    relationUuid: string | null;
+    chapters:
+      | {
+          isEpilogue: boolean;
+          levels: { reward: ContractReward | null }[] | null;
+          freeRewards: ContractReward[] | null;
+        }[]
+      | null;
+  } | null;
+}
+
+export interface GameVersion {
+  version: string;
+  branch: string;
+  buildDate: string;
+}

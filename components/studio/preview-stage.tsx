@@ -21,6 +21,7 @@ import { Switch } from "@/components/ui/switch";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useStudioCatalog } from "@/hooks/use-studio-catalog";
 import { useTranslations } from "@/hooks/use-translations";
+import { withAlpha } from "@/lib/card/color";
 import { resolveCardData } from "@/lib/card/resolve";
 import { cn } from "@/lib/utils";
 import { useCardStore } from "@/stores/card-store";
@@ -106,7 +107,11 @@ const LivePreview = () => {
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.3 }}
-        className="drop-shadow-[0_20px_40px_rgba(255,70,85,0.18)]"
+        // Kartın parlaması seçili rank'in renginde.
+        style={{
+          filter: `drop-shadow(0 20px 40px ${withAlpha(data.tierColor, 0.3)})`,
+          transition: "filter 400ms ease",
+        }}
       >
         <PlayerCard
           data={data}

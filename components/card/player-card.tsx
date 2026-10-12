@@ -239,14 +239,22 @@ const HorizontalCard = ({ data, fontFamily, scale = 1 }: PlayerCardProps) => {
           </div>
         </div>
 
+        {/* Rank renginde ince ayraç */}
+        <div
+          style={{
+            display: "flex",
+            height: px(2),
+            backgroundColor: data.tierColor,
+          }}
+        />
+
         <div
           style={{
             position: "relative",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            height: px(31),
-            marginTop: px(1),
+            height: px(30),
             paddingLeft: px(6),
             paddingRight: px(6),
             backgroundColor: "#0F1820",
