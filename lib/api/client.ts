@@ -1,5 +1,9 @@
 import axios from "axios";
-import { cardImagePath, type CardConfig } from "@/lib/card/config";
+import {
+  cardImagePath,
+  type CardConfig,
+  type ExportScale,
+} from "@/lib/card/config";
 import type { LanguageCode } from "@/lib/i18n";
 import type { Catalog } from "@/types/catalog";
 
@@ -11,8 +15,11 @@ export const fetchCatalog = async (lang: LanguageCode) => {
   return data;
 };
 
-export const fetchCardImage = async (config: CardConfig) => {
-  const { data } = await axios.get<Blob>(cardImagePath(config), {
+export const fetchCardImage = async (
+  config: CardConfig,
+  scale: ExportScale
+) => {
+  const { data } = await axios.get<Blob>(cardImagePath(config, scale), {
     responseType: "blob",
   });
   return data;

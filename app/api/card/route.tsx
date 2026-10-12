@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import type { NextRequest } from "next/server";
 import { CARD_SIZE, PlayerCard } from "@/components/card/player-card";
-import { parseCardConfig } from "@/lib/card/config";
+import { parseCardConfig, parseExportScale } from "@/lib/card/config";
 import { resolveCardData } from "@/lib/card/resolve";
 import {
   CARD_FONT_FAMILY,
@@ -13,7 +13,7 @@ import { getCatalog } from "@/lib/server/catalog";
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
   const config = parseCardConfig(searchParams);
-  const scale = searchParams.get("scale") === "1" ? 1 : 2;
+  const scale = parseExportScale(searchParams.get("scale"));
 
   const catalog = await getCatalog(config.lang);
   const data = resolveCardData(config, catalog);

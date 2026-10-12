@@ -141,6 +141,23 @@ export const randomizeCardConfig = (
   level: sanitizeLevel(Math.random() * 500),
 });
 
+/**
+ * Dışa aktarım ölçeği. 1x: kart görselleri API'deki en yüksek çözünürlükte
+ * (268×640 / 452×128) olduğu için büyütülmeden, birebir piksel. 2x: daha
+ * büyük, yazılar daha keskin; kart görseli büyütüldüğü için biraz yumuşar.
+ */
+export type ExportScale = 1 | 2;
+export const DEFAULT_EXPORT_SCALE: ExportScale = 2;
+
+export const parseExportScale = (value: string | null): ExportScale =>
+  value === "1" ? 1 : DEFAULT_EXPORT_SCALE;
+
 /** PNG'yi üreten route'un adresi (indirme ve og:image için). */
-export const cardImagePath = (config: CardConfig) =>
-  `/api/card?${serializeCardConfig(config)}`;
+export const cardImagePath = (
+  config: CardConfig,
+  scale: ExportScale = DEFAULT_EXPORT_SCALE
+) => {
+  const params = serializeCardConfig(config);
+  if (scale !== DEFAULT_EXPORT_SCALE) params.set("scale", String(scale));
+  return `/api/card?${params}`;
+};

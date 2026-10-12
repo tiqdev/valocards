@@ -68,6 +68,11 @@ const en = {
   rare_label: "Rare",
   rare_hint: "Only visible in the collection to players who own it",
   game_version: "Game data",
+  download_options: "Download options",
+  download_hd: "High resolution (2x)",
+  download_hd_hint: "Sharper text; card art is upscaled",
+  download_original: "Original size (1x)",
+  download_original_hint: "Card art pixel-for-pixel, no upscaling",
   disclaimer:
     "ValoCards was created under Riot Games' \"Legal Jibber Jabber\" policy using assets owned by Riot Games. Riot Games does not endorse or sponsor this project.",
 };
@@ -117,6 +122,11 @@ export const translations: Record<LanguageCode, Translations> = {
     rare_label: "Nadir",
     rare_hint: "Koleksiyonda sadece sahip olan oyunculara görünür",
     game_version: "Oyun verisi",
+    download_options: "İndirme seçenekleri",
+    download_hd: "Yüksek çözünürlük (2x)",
+    download_hd_hint: "Yazılar daha keskin; kart görseli büyütülür",
+    download_original: "Orijinal boyut (1x)",
+    download_original_hint: "Kart görseli birebir piksel, büyütme yok",
     disclaimer:
       "ValoCards, Riot Games'in \"Legal Jibber Jabber\" politikası kapsamında Riot Games'e ait varlıklar kullanılarak oluşturulmuştur. Riot Games bu projeyi onaylamamakta veya desteklememektedir.",
   },
@@ -161,6 +171,11 @@ export const translations: Record<LanguageCode, Translations> = {
     rare_label: "Редкое",
     rare_hint: "Видно в коллекции только владельцам",
     game_version: "Данные игры",
+    download_options: "Параметры скачивания",
+    download_hd: "Высокое разрешение (2x)",
+    download_hd_hint: "Текст чётче; изображение карточки увеличено",
+    download_original: "Оригинальный размер (1x)",
+    download_original_hint: "Изображение карточки пиксель в пиксель, без увеличения",
     disclaimer:
       "ValoCards создан в соответствии с политикой Riot Games «Legal Jibber Jabber» с использованием материалов, принадлежащих Riot Games. Riot Games не одобряет и не спонсирует этот проект.",
   },
