@@ -14,12 +14,12 @@ export const Studio = () => {
   }, [lang]);
 
   return (
-    <div className="flex min-h-svh flex-col lg:h-svh">
-      <main className="flex flex-1 flex-col lg:min-h-0 lg:flex-row-reverse">
+    <div className="flex h-svh flex-col">
+      <main className="flex min-h-0 flex-1">
         <PreviewStage />
-        <EditorPanel />
       </main>
       <SiteFooter />
+      <EditorPanel />
     </div>
   );
 };

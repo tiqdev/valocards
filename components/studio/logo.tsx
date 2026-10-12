@@ -8,7 +8,7 @@ export const Logo = () => (
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     transition={{ delay: 0.3 }}
-    className="pointer-events-none absolute top-4 left-1/2 z-20 -translate-x-1/2 lg:top-6"
+    className="pointer-events-none"
   >
     <Image
       src="/logo.png"

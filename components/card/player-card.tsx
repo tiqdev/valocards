@@ -21,10 +21,12 @@ export interface PlayerCardProps {
   scale?: number;
 }
 
-const FADE_STYLE = {
-  clipPath: "polygon(50% 94%, 100% 76%, 100% 0, 0 0, 0 76%)",
+// Satori, clip-path poligonundaki yüzdeleri sağ kenar için yanlış hesaplıyor;
+// bu yüzden köşeler piksel olarak verilir (tarayıcıda da aynı sonucu verir).
+const fadeStyle = (width: number, height: number) => ({
+  clipPath: `polygon(${width * 0.5}px ${height * 0.94}px, ${width}px ${height * 0.76}px, ${width}px 0px, 0px 0px, 0px ${height * 0.76}px)`,
   maskImage: "linear-gradient(to top, transparent 0%, black 30%)",
-};
+});
 
 const LevelBadge = ({
   src,
@@ -89,7 +91,7 @@ const VerticalCard = ({ data, frameSrc, fontFamily, scale = 1 }: PlayerCardProps
           position: "absolute",
           top: 0,
           left: 0,
-          ...(data.fade ? FADE_STYLE : {}),
+          ...(data.fade ? fadeStyle(px(width), px(height)) : {}),
         }}
       />
 

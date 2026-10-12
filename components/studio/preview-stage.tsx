@@ -1,9 +1,16 @@
 "use client";
 
 import { motion } from "motion/react";
-import { RectangleHorizontal, RectangleVertical, RotateCw } from "lucide-react";
+import {
+  PanelLeftClose,
+  Pencil,
+  RectangleHorizontal,
+  RectangleVertical,
+  RotateCw,
+} from "lucide-react";
 import { CARD_SIZE, PlayerCard } from "@/components/card/player-card";
 import { CardActions } from "@/components/studio/card-actions";
+import { EDITOR_WIDTH } from "@/components/studio/editor-panel";
 import { FitToContainer } from "@/components/studio/fit-to-container";
 import { LanguageSelect } from "@/components/studio/language-select";
 import { Logo } from "@/components/studio/logo";
@@ -15,6 +22,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useStudioCatalog } from "@/hooks/use-studio-catalog";
 import { useTranslations } from "@/hooks/use-translations";
 import { resolveCardData } from "@/lib/card/resolve";
+import { cn } from "@/lib/utils";
 import { useCardStore } from "@/stores/card-store";
 
 const PreviewToolbar = () => {
@@ -110,29 +118,65 @@ const LivePreview = () => {
   );
 };
 
+const EditorToggle = () => {
+  const isOpen = useCardStore((state) => state.isEditorOpen);
+  const setOpen = useCardStore((state) => state.setEditorOpen);
+  const t = useTranslations();
+
+  return (
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={() => setOpen(!isOpen)}
+      aria-expanded={isOpen}
+      className="font-display uppercase tracking-wider"
+    >
+      {isOpen ? <PanelLeftClose /> : <Pencil />}
+      {isOpen ? t.close_label : t.edit_label}
+    </Button>
+  );
+};
+
 export const PreviewStage = () => {
+  const isEditorOpen = useCardStore((state) => state.isEditorOpen);
   const t = useTranslations();
 
   return (
     <section
       aria-label={t.preview}
-      className="relative flex flex-col items-center gap-4 overflow-hidden bg-grid px-4 py-5 lg:min-h-0 lg:flex-1 lg:gap-6 lg:p-8"
+      className="relative flex min-h-0 flex-1 overflow-hidden bg-grid"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,var(--background)_75%)]" />
-      <div className="pointer-events-none absolute left-1/2 top-1/2 size-[480px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-3xl" />
 
-      <Logo />
-      <div className="absolute top-4 right-4 z-20 flex items-center gap-2 lg:top-6 lg:right-6">
-        <LanguageSelect />
-        <ThemeToggle />
-      </div>
+      {/* Masaüstünde editör açıkken içerik panelin sağında kalan alana ortalanır. */}
+      <div
+        style={{ "--editor-width": `${EDITOR_WIDTH}px` } as React.CSSProperties}
+        className={cn(
+          "relative flex flex-1 flex-col items-center gap-4 px-4 pt-4 pb-5 transition-[padding] duration-300 ease-in-out lg:gap-6 lg:px-8 lg:pt-6 lg:pb-8",
+          isEditorOpen && "lg:pl-[calc(var(--editor-width)+2rem)]"
+        )}
+      >
+        <div className="pointer-events-none absolute left-1/2 top-1/2 size-[480px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-3xl" />
 
-      <div className="relative z-10 flex w-full flex-col items-center gap-4 pt-16 lg:h-full lg:gap-6 lg:pt-14">
-        <PreviewToolbar />
-        <div className="flex h-[52svh] min-h-80 w-full items-center justify-center lg:h-auto lg:min-h-0 lg:flex-1">
-          <LivePreview />
+        {/* Logo ortada, butonlar köşelerde; bar değil, sadece aynı hizada. */}
+        <div className="relative z-20 flex h-12 w-full shrink-0 items-center justify-center">
+          <div className="absolute left-0">
+            <EditorToggle />
+          </div>
+          <Logo />
+          <div className="absolute right-0 flex items-center gap-2">
+            <LanguageSelect />
+            <ThemeToggle />
+          </div>
         </div>
-        <CardActions />
+
+        <div className="relative z-10 flex min-h-0 w-full flex-1 flex-col items-center gap-4 lg:gap-6">
+          <PreviewToolbar />
+          <div className="flex min-h-80 w-full flex-1 items-center justify-center lg:min-h-0">
+            <LivePreview />
+          </div>
+          <CardActions />
+        </div>
       </div>
     </section>
   );

@@ -11,20 +11,24 @@ export type EditorTab = (typeof EDITOR_TABS)[number];
 interface CardState {
   config: CardConfig;
   activeTab: EditorTab;
+  isEditorOpen: boolean;
 
   update: (patch: Partial<CardConfig>) => void;
   replace: (config: CardConfig) => void;
   setActiveTab: (tab: EditorTab) => void;
+  setEditorOpen: (isOpen: boolean) => void;
 }
 
 const createCardStore = (initialConfig: CardConfig) =>
   createStore<CardState>()((set) => ({
     config: initialConfig,
     activeTab: "player",
+    isEditorOpen: false,
 
     update: (patch) => set((state) => ({ config: { ...state.config, ...patch } })),
     replace: (config) => set({ config }),
     setActiveTab: (activeTab) => set({ activeTab }),
+    setEditorOpen: (isEditorOpen) => set({ isEditorOpen }),
   }));
 
 const CardStoreContext = createContext<StoreApi<CardState> | null>(null);

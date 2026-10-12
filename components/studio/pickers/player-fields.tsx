@@ -81,6 +81,8 @@ export const PlayerFields = () => {
           />
         </div>
         <Slider
+          // Mobil drawer içinde kaydırırken drawer sürüklenmesin.
+          data-vaul-no-drag=""
           aria-label={t.level}
           min={LEVEL_MIN}
           max={LEVEL_MAX}

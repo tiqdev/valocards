@@ -58,6 +58,9 @@ const en = {
   fetch_error: "Game data could not be loaded",
   retry: "Retry",
   preview: "Preview",
+  edit_label: "Edit",
+  close_label: "Close",
+  editor_title: "Edit card",
   disclaimer:
     "ValoCards was created under Riot Games' \"Legal Jibber Jabber\" policy using assets owned by Riot Games. Riot Games does not endorse or sponsor this project.",
 };
@@ -97,6 +100,9 @@ export const translations: Record<LanguageCode, Translations> = {
     fetch_error: "Oyun verileri yüklenemedi",
     retry: "Tekrar dene",
     preview: "Önizleme",
+    edit_label: "Düzenle",
+    close_label: "Kapat",
+    editor_title: "Kartı düzenle",
     disclaimer:
       "ValoCards, Riot Games'in \"Legal Jibber Jabber\" politikası kapsamında Riot Games'e ait varlıklar kullanılarak oluşturulmuştur. Riot Games bu projeyi onaylamamakta veya desteklememektedir.",
   },
@@ -131,6 +137,9 @@ export const translations: Record<LanguageCode, Translations> = {
     fetch_error: "Не удалось загрузить игровые данные",
     retry: "Повторить",
     preview: "Предпросмотр",
+    edit_label: "Редактировать",
+    close_label: "Закрыть",
+    editor_title: "Редактирование карточки",
     disclaimer:
       "ValoCards создан в соответствии с политикой Riot Games «Legal Jibber Jabber» с использованием материалов, принадлежащих Riot Games. Riot Games не одобряет и не спонсирует этот проект.",
   },
