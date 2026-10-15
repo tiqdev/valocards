@@ -3,7 +3,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { createStore, useStore, type StoreApi } from "zustand";
 import { serializeCardConfig, type CardConfig } from "@/lib/card/config";
-import { LANGUAGE_COOKIE } from "@/lib/i18n";
 
 export const EDITOR_TABS = ["player", "card", "agent", "rank", "title"] as const;
 export type EditorTab = (typeof EDITOR_TABS)[number];
@@ -63,10 +62,6 @@ export const CardStoreProvider = ({
           `?${serializeCardConfig(store.getState().config)}`
         );
       }, URL_SYNC_DELAY);
-
-      if (state.config.lang !== previous.config.lang) {
-        document.cookie = `${LANGUAGE_COOKIE}=${state.config.lang}; path=/; max-age=31536000; samesite=lax`;
-      }
     });
 
     return () => {

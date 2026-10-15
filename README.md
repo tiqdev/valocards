@@ -13,6 +13,7 @@ ValoCards is a tool for creating custom player cards for Valorant players. You c
 - **Vertical & horizontal cards** with the agent's own accent color and an in-game style level badge.
 - **Shareable links:** the whole card lives in the URL. Shared links unfurl on Discord/Twitter with the card itself as the preview image.
 - **Server-rendered PNG:** downloads are rendered on the server with `next/og`, so the image is identical on every device.
+- **Wallpaper studio (`/wallpaper`):** a free canvas for phone (1080×1920, 1179×2556) or desktop (1920×1080, 2560×1440) wallpapers. Add agents, sprays and player cards, then move, resize, rotate, flip and layer them freely over a color or map background. Includes undo/redo, keyboard shortcuts and full-resolution PNG export; the design is saved in the browser.
 - **English, Türkçe, Русский:** game data (titles, ranks, agents) follows the selected language.
 - Works on desktop and mobile.
 - The quality of the visuals taken directly from the game is not dependent on us.
@@ -30,6 +31,9 @@ Built with Next.js 16, React 19, TypeScript, Tailwind CSS v4, shadcn/ui, Zustand
 | `lib/card` | Card config (URL format), asset URLs, data resolving |
 | `queries` | TanStack Query hooks; all client-side data fetching goes through here (enforced by ESLint) |
 | `stores/card-store.tsx` | Zustand store, synced to the URL |
+| `app/wallpaper`, `components/wallpaper` | Wallpaper studio (Konva canvas, asset panel) |
+| `stores/wallpaper-store.ts` | Wallpaper design, undo/redo history, saved to localStorage |
+| `components/layout`, `components/pickers` | Shell and pickers shared by both pages |
 
 ## 📷 Screenshots
 

@@ -1,5 +1,4 @@
+import { useLanguage } from "@/components/i18n-provider";
 import { translations } from "@/lib/i18n";
-import { useCardStore } from "@/stores/card-store";
 
-export const useTranslations = () =>
-  translations[useCardStore((state) => state.config.lang)];
+export const useTranslations = () => translations[useLanguage().lang];

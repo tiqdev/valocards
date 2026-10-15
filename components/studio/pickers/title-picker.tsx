@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Check, Gem } from "lucide-react";
-import { ContentFilter } from "@/components/studio/pickers/content-filter";
+import { ContentFilter } from "@/components/pickers/content-filter";
 import {
   Command,
   CommandEmpty,

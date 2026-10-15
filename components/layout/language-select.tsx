@@ -1,6 +1,7 @@
 "use client";
 
 import { Languages } from "lucide-react";
+import { useLanguage } from "@/components/i18n-provider";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -13,11 +14,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useTranslations } from "@/hooks/use-translations";
 import { isLanguageCode, languages } from "@/lib/i18n";
-import { useCardStore } from "@/stores/card-store";
 
 export const LanguageSelect = () => {
-  const lang = useCardStore((state) => state.config.lang);
-  const update = useCardStore((state) => state.update);
+  const { lang, setLang } = useLanguage();
   const t = useTranslations();
 
   return (
@@ -36,7 +35,7 @@ export const LanguageSelect = () => {
         <DropdownMenuRadioGroup
           value={lang}
           onValueChange={(value) => {
-            if (isLanguageCode(value)) update({ lang: value });
+            if (isLanguageCode(value)) setLang(value);
           }}
         >
           {languages.map((language) => (

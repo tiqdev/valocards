@@ -1,20 +1,11 @@
 "use client";
 
 import { motion } from "motion/react";
-import {
-  PanelLeftClose,
-  Pencil,
-  RectangleHorizontal,
-  RectangleVertical,
-  RotateCw,
-} from "lucide-react";
+import { RectangleHorizontal, RectangleVertical, RotateCw } from "lucide-react";
 import { CARD_SIZE, PlayerCard } from "@/components/card/player-card";
 import { CardActions } from "@/components/studio/card-actions";
-import { EDITOR_WIDTH } from "@/components/studio/editor-panel";
 import { FitToContainer } from "@/components/studio/fit-to-container";
-import { LanguageSelect } from "@/components/studio/language-select";
-import { Logo } from "@/components/studio/logo";
-import { ThemeToggle } from "@/components/studio/theme-toggle";
+import { Stage } from "@/components/layout/stage";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
@@ -23,7 +14,6 @@ import { useStudioCatalog } from "@/hooks/use-studio-catalog";
 import { useTranslations } from "@/hooks/use-translations";
 import { withAlpha } from "@/lib/card/color";
 import { resolveCardData } from "@/lib/card/resolve";
-import { cn } from "@/lib/utils";
 import { useCardStore } from "@/stores/card-store";
 
 const PreviewToolbar = () => {
@@ -123,66 +113,23 @@ const LivePreview = () => {
   );
 };
 
-const EditorToggle = () => {
-  const isOpen = useCardStore((state) => state.isEditorOpen);
-  const setOpen = useCardStore((state) => state.setEditorOpen);
-  const t = useTranslations();
-
-  return (
-    <Button
-      variant="outline"
-      size="sm"
-      onClick={() => setOpen(!isOpen)}
-      aria-expanded={isOpen}
-      className="font-display uppercase tracking-wider"
-    >
-      {isOpen ? <PanelLeftClose /> : <Pencil />}
-      {isOpen ? t.close_label : t.edit_label}
-    </Button>
-  );
-};
-
 export const PreviewStage = () => {
   const isEditorOpen = useCardStore((state) => state.isEditorOpen);
+  const setEditorOpen = useCardStore((state) => state.setEditorOpen);
   const t = useTranslations();
 
   return (
-    <section
-      aria-label={t.preview}
-      className="relative flex min-h-0 flex-1 overflow-hidden bg-grid"
+    <Stage
+      label={t.preview}
+      panelOpen={isEditorOpen}
+      onPanelOpenChange={setEditorOpen}
+      openPanelLabel={t.edit_label}
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,var(--background)_75%)]" />
-
-      {/* Masaüstünde editör açıkken içerik panelin sağında kalan alana ortalanır. */}
-      <div
-        style={{ "--editor-width": `${EDITOR_WIDTH}px` } as React.CSSProperties}
-        className={cn(
-          "relative flex flex-1 flex-col items-center gap-4 px-4 pt-4 pb-5 transition-[padding] duration-300 ease-in-out lg:gap-6 lg:px-8 lg:pt-6 lg:pb-8",
-          isEditorOpen && "lg:pl-[calc(var(--editor-width)+2rem)]"
-        )}
-      >
-        <div className="pointer-events-none absolute left-1/2 top-1/2 size-[480px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-3xl" />
-
-        {/* Logo ortada, butonlar köşelerde; bar değil, sadece aynı hizada. */}
-        <div className="relative z-20 flex h-12 w-full shrink-0 items-center justify-center">
-          <div className="absolute left-0">
-            <EditorToggle />
-          </div>
-          <Logo />
-          <div className="absolute right-0 flex items-center gap-2">
-            <LanguageSelect />
-            <ThemeToggle />
-          </div>
-        </div>
-
-        <div className="relative z-10 flex min-h-0 w-full flex-1 flex-col items-center gap-4 lg:gap-6">
-          <PreviewToolbar />
-          <div className="flex min-h-80 w-full flex-1 items-center justify-center lg:min-h-0">
-            <LivePreview />
-          </div>
-          <CardActions />
-        </div>
+      <PreviewToolbar />
+      <div className="flex min-h-80 w-full flex-1 items-center justify-center lg:min-h-0">
+        <LivePreview />
       </div>
-    </section>
+      <CardActions />
+    </Stage>
   );
 };

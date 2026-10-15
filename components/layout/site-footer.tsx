@@ -1,32 +1,38 @@
 "use client";
 
-import { EDITOR_WIDTH } from "@/components/studio/editor-panel";
-import { useStudioCatalog } from "@/hooks/use-studio-catalog";
+import { PANEL_WIDTH } from "@/components/layout/responsive-panel";
 import { useTranslations } from "@/hooks/use-translations";
 import { cn } from "@/lib/utils";
-import { useCardStore } from "@/stores/card-store";
-import type { Catalog } from "@/types/catalog";
 
 // "13.06.00.5590001" -> "13.06"
-const selectPatch = (catalog: Catalog) =>
-  catalog.version.split(".").slice(0, 2).join(".");
+export const toPatch = (version: string) =>
+  version.split(".").slice(0, 2).join(".");
 
-export const SiteFooter = () => {
-  const isEditorOpen = useCardStore((state) => state.isEditorOpen);
-  const { data: patch } = useStudioCatalog(selectPatch);
+/**
+ * Masaüstünde yan panel açıkken içerik panelin sağına kayar. Oyun sürümü,
+ * sunucuda hazırlanan veriden gelmeli; yoksa hydration uyuşmazlığı olur.
+ */
+export const SiteFooter = ({
+  panelOpen,
+  gameVersion,
+}: {
+  panelOpen: boolean;
+  gameVersion?: string;
+}) => {
+  const patch = gameVersion && gameVersion !== "unknown" ? toPatch(gameVersion) : null;
   const t = useTranslations();
 
   return (
     <footer
-      style={{ "--editor-width": `${EDITOR_WIDTH}px` } as React.CSSProperties}
+      style={{ "--panel-width": `${PANEL_WIDTH}px` } as React.CSSProperties}
       className={cn(
         "flex shrink-0 flex-col gap-2 border-t px-4 py-3 text-[11px] text-muted-foreground transition-[padding] duration-300 ease-in-out sm:flex-row sm:items-center sm:justify-between lg:px-6",
-        isEditorOpen && "lg:pl-[calc(var(--editor-width)+1.5rem)]"
+        panelOpen && "lg:pl-[calc(var(--panel-width)+1.5rem)]"
       )}
     >
       <p className="max-w-3xl leading-relaxed">{t.disclaimer}</p>
       <div className="flex shrink-0 items-center gap-4">
-        {patch && patch !== "unknown" && (
+        {patch && (
           <span className="font-display uppercase tracking-wider">
             {t.game_version}: {patch}
           </span>

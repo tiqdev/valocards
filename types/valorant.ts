@@ -91,3 +91,21 @@ export interface GameVersion {
   branch: string;
   buildDate: string;
 }
+
+export interface Spray {
+  uuid: string;
+  displayName: string;
+  category: string | null;
+  isNullSpray: boolean;
+  hideIfNotOwned: boolean;
+  fullTransparentIcon: string | null;
+  animationGif: string | null;
+}
+
+export interface GameMap {
+  uuid: string;
+  displayName: string;
+  tacticalDescription: string | null;
+  splash: string | null;
+  listViewIcon: string | null;
+}
